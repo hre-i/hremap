@@ -1,0 +1,11 @@
+[Unit]
+Description=Keyboard remap
+Wants=default.target
+
+[Service]
+ExecStart=/usr/local/etc/hremap.sh
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
