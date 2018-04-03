@@ -19,7 +19,6 @@
 class HreMapConverter : public Converter
 {
 public:
-    HreMapConverter(const std::vector<std::string>& excludeList);
     virtual ~HreMapConverter();
 
 protected:
@@ -32,9 +31,6 @@ protected:
     void pressKey(__u16 code, int metaKeys);
     void releaseKey(__u16 code, int metaKeys);
     void setMetaKeys(int, int);
-
-    void addExcludePattern(const char* pattern);
-    bool exclude() const;
 
 private:
 
@@ -54,8 +50,6 @@ private:
     static HenkanKey m_henkan_keys[];
 
     bool m_state_pasteNewline;
-    typedef std::vector<boost::regex*> ExcludeList;
-    ExcludeList m_excludePatterns;
 };
 
 

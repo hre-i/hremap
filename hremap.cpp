@@ -76,33 +76,8 @@ HreMapConverter::HenkanKey* HreMapConverter::find_henkan_keys(int code)
     return NULL;
 }
 
-HreMapConverter::HreMapConverter(const std::vector<std::string>& excludeList)
-    : Converter(), m_metaKeyFlags(0),
-      m_henkan_state(false),
-      m_state_pasteNewline(false)
-{
-    std::vector<std::string>::const_iterator iend = excludeList.end();
-    for (std::vector<std::string>::const_iterator i = excludeList.begin();
-         i != iend; ++i) {
-        if (i->size() <= 0)
-            continue;
-        addExcludePattern(i->c_str());
-    }
-}
-
 HreMapConverter::~HreMapConverter()
-{
-    ExcludeList::const_iterator iend = m_excludePatterns.end();
-    for (ExcludeList::iterator i = m_excludePatterns.begin();
-         i != iend; ++i) {
-        delete (*i);
-    }
-}
-
-void HreMapConverter::addExcludePattern(const char* pattern)
-{
-    m_excludePatterns.push_back(new boost::regex(pattern));
-}
+{}
 
 bool HreMapConverter::handleMetaKeyInput(struct input_event* input, int bit)
 {
@@ -319,41 +294,37 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
 
     switch (input->code) {
     case KEY_H:
-        if (!exclude()) {
-            switch (input->value) {
-            case 0:
-                break;
-            case 2: // AUTOREPEAT
-            case 1: // PRESS
-                if (g_enable_ctrl_map &&
-                        IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
-                    DP(("C-H -> TYPE BACKSPACE\n"));
-                    typeKey(KEY_BACKSPACE, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
-                    return true;
-                }
-                break;
-            default:
-                DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
+        switch (input->value) {
+        case 0:
+            break;
+        case 2: // AUTOREPEAT
+        case 1: // PRESS
+            if (g_enable_ctrl_map &&
+                    IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
+                DP(("C-H -> TYPE BACKSPACE\n"));
+                typeKey(KEY_BACKSPACE, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
+                return true;
             }
+            break;
+        default:
+            DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
 	break;
     case KEY_M:
-        if (!exclude()) {
-            switch (input->value) {
-            case 0:
-                break;
-            case 2: // AUTOREPEAT
-            case 1: // PRESS
-                if (g_enable_ctrl_map &&
-                        IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
-                    DP(("C-M -> TYPE ENTER\n"));
-                    typeKey(KEY_ENTER, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
-                    return true;
-                }
-                break;
-            default:
-                DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
+        switch (input->value) {
+        case 0:
+            break;
+        case 2: // AUTOREPEAT
+        case 1: // PRESS
+            if (g_enable_ctrl_map &&
+                    IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
+                DP(("C-M -> TYPE ENTER\n"));
+                typeKey(KEY_ENTER, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
+                return true;
             }
+            break;
+        default:
+            DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
     break;
     }
@@ -379,19 +350,4 @@ bool HreMapConverter::handleKeyDefault(struct input_event* input)
 {
     addOutput(input);
     return true;
-}
-
-bool HreMapConverter::exclude() const
-{
-    // std::string winTitle =
-    //     WindowSystem::getInstance()->getFocusedWindowTitle();
-    // DP(("winTitle: \"%s\"\n", winTitle.c_str()));
-
-    // ExcludeList::const_iterator iend = m_excludePatterns.end();
-    // for (ExcludeList::const_iterator i = m_excludePatterns.begin();
-    //      i != iend; ++i) {
-    //     if (boost::regex_search(winTitle, **i))
-    //         return true;
-    // }
-    return false;
 }

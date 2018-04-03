@@ -40,8 +40,6 @@ int main(int argc, char* argv[])
 {
     char* fileName = NULL;
     bool noGrabMode = false;
-    const char* excludeFile = NULL;
-    std::vector<std::string> excludeList;
 
     g_debug = false;
 
@@ -85,25 +83,6 @@ int main(int argc, char* argv[])
     //     return 1;
     // }
 
-    /* Read exclude list */
-    if (excludeFile != NULL) {
-        FILE *fp = fopen(excludeFile, "r");
-        if (fp == NULL) {
-            fprintf(stderr, "ERROR: failed to open file `%s'\n", excludeFile);
-            return 1;
-        }
-        char buf[256];
-        while (fgets(buf, sizeof(buf), fp) == buf) {
-            for (int i = strlen(buf) - 1; i >= 0; i--) {
-                if (buf[i] != '\n' && buf[i] != '\r')
-                    break;
-                buf[i] = '\0';
-            }
-            excludeList.push_back(std::string(buf));
-        }
-        fclose(fp);
-    }
-
     /* We don't want keyboard echos */
     struct termios term;
     if (tcgetattr(STDIN_FILENO, &term) >= 0) {
@@ -125,8 +104,7 @@ int main(int argc, char* argv[])
     }
 
     /* Initialize converter */
-    std::unique_ptr<Converter>
-        conv(new HreMapConverter(excludeList));
+    std::unique_ptr<Converter> conv(new HreMapConverter());
 
     struct sigaction sa;
     sa.sa_handler = &sighandle; // Setup the sighub handler
