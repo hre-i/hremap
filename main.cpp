@@ -23,6 +23,7 @@
 static void usage()
 {
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
+    fprintf(stderr, "  -C|--caps-to-ctrl: convert caps to left ctrl\n");
     fprintf(stderr, "  -c|--enable-ctrl-map: enable ctrl+{h,m} mapping\n");
     fprintf(stderr, "  -f|--enable-function-map: enable mappings with function keys\n");
     fprintf(stderr, "  -n|--no-grab: do not grab device input (for debug)\n");
@@ -32,6 +33,7 @@ static void usage()
 bool g_debug = false;
 bool g_enable_ctrl_map = false;
 bool g_enable_function_map = false;
+bool g_caps_to_ctrl = false;
 
 static void sighandle(int signal)
 {
@@ -48,7 +50,11 @@ int main(int argc, char* argv[])
     /* Parse command line arguments */
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
-            if (strcmp(argv[i], "-c") == 0
+            if (strcmp(argv[i], "-C") == 0
+                || strcmp(argv[i], "--caps-to-ctrl") == 0) {
+                g_caps_to_ctrl = true;
+            }
+            else if (strcmp(argv[i], "-c") == 0
                 || strcmp(argv[i], "--enable-ctrl-map") == 0) {
                 g_enable_ctrl_map = true;
             }
