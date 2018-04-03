@@ -126,16 +126,16 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
 {
     int tmpRelease = m_metaKeyFlags & ~metaKeys;
     int tmpPress = ~m_metaKeyFlags & metaKeys;
-    static const int bits[] = {
-        BIT_LEFTCTRL, BIT_RIGHTCTRL,
-        BIT_LEFTSHIFT, BIT_RIGHTSHIFT,
-        BIT_LEFTALT, BIT_RIGHTALT,
-    };
-    static const __u16 keys[] = {
-        KEY_LEFTCTRL, KEY_RIGHTCTRL,
-        KEY_LEFTSHIFT, KEY_RIGHTSHIFT,
-        KEY_LEFTALT, KEY_RIGHTALT,
-    };
+    // static const int bits[] = {
+    //     BIT_LEFTCTRL, BIT_RIGHTCTRL,
+    //     BIT_LEFTSHIFT, BIT_RIGHTSHIFT,
+    //     BIT_LEFTALT, BIT_RIGHTALT,
+    // };
+    // static const __u16 keys[] = {
+    //     KEY_LEFTCTRL, KEY_RIGHTCTRL,
+    //     KEY_LEFTSHIFT, KEY_RIGHTSHIFT,
+    //     KEY_LEFTALT, KEY_RIGHTALT,
+    // };
 
     struct input_event input, syn;
     memset(&input, 0, sizeof(input));
@@ -147,17 +147,17 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
 
     /* Change meta-key states to metaKeys */
     input.value = 0;
-    for (int i = 0; i < int(sizeof(keys)/sizeof(keys[0])); i++) {
-        if (tmpRelease & bits[i]) {
-            input.code = keys[i];
+    for (int i = 0; i < metaKeysNum; i++) {
+        if (tmpRelease & m_metaBits[i]) {
+            input.code = m_metaKeys[i];
             addOutput(&input);
         }
     }
 
     input.value = 1;
-    for (int i = 0; i < int(sizeof(keys)/sizeof(keys[0])); i++) {
-        if (tmpPress & bits[i]) {
-            input.code = keys[i];
+    for (int i = 0; i < metaKeysNum; i++) {
+        if (tmpPress & m_metaBits[i]) {
+            input.code = m_metaKeys[i];
             addOutput(&input);
         }
     }
@@ -177,17 +177,17 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
 
     /* Change meta-key states back to m_metaKeyFlags */
     input.value = 0;
-    for (int i = 0; i < int(sizeof(keys)/sizeof(keys[0])); i++) {
-        if (tmpPress & bits[i]) {
-            input.code = keys[i];
+    for (int i = 0; i < metaKeysNum; i++) {
+        if (tmpPress & m_metaBits[i]) {
+            input.code = m_metaKeys[i];
             addOutput(&input);
         }
     }
 
     input.value = 1;
-    for (int i = 0; i < int(sizeof(keys)/sizeof(keys[0])); i++) {
-        if (tmpRelease & bits[i]) {
-            input.code = keys[i];
+    for (int i = 0; i < metaKeysNum; i++) {
+        if (tmpRelease & m_metaBits[i]) {
+            input.code = m_metaKeys[i];
             addOutput(&input);
         }
     }
@@ -299,11 +299,13 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             break;
         case 2: // AUTOREPEAT
         case 1: // PRESS
-            if (g_enable_ctrl_map &&
-                    IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
+            if (g_enable_ctrl_map) {
+                DP(("CTRL MAP %d %d %d\n", IS_CTRL_ON(), IS_ALT_ON(), IS_SHIFT_ON()));
+                   if (IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
                 DP(("C-H -> TYPE BACKSPACE\n"));
                 typeKey(KEY_BACKSPACE, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
                 return true;
+            }
             }
             break;
         default:
