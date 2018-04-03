@@ -9,6 +9,7 @@ extern bool g_debug;
 #define DP(x) if (g_debug) printf x
 
 extern bool g_enable_ctrl_map;
+extern bool g_enable_function_map;
 
 #define BIT_LEFTCTRL   (1 << 0)
 #define BIT_RIGHTCTRL  (1 << 1)
@@ -16,27 +17,34 @@ extern bool g_enable_ctrl_map;
 #define BIT_RIGHTSHIFT (1 << 3)
 #define BIT_LEFTALT    (1 << 4)
 #define BIT_RIGHTALT   (1 << 5)
+#define BIT_LEFTWIN    (1 << 6)
+#define BIT_RIGHTWIN   (1 << 7)
 
 #define IS_CTRL_ON()   ((m_metaKeyFlags & (BIT_LEFTCTRL|BIT_RIGHTCTRL)) != 0)
 #define IS_SHIFT_ON()  ((m_metaKeyFlags & (BIT_LEFTSHIFT|BIT_RIGHTSHIFT)) != 0)
 #define IS_ALT_ON()    ((m_metaKeyFlags & (BIT_LEFTALT|BIT_RIGHTALT)) != 0)
+#define IS_WIN_ON()    ((m_metaKeyFlags & (BIT_LEFTWIN|BIT_RIGHTWIN)) != 0)
+#define NO_METAKEY()   (m_metaKeyFlags == 0)
 
 const int HreMapConverter::m_metaBits[] = {
     BIT_LEFTCTRL,  BIT_RIGHTCTRL,
     BIT_LEFTSHIFT, BIT_RIGHTSHIFT,
     BIT_LEFTALT,   BIT_RIGHTALT,
+    BIT_LEFTWIN,   BIT_RIGHTWIN,
 };
 
 const __u16 HreMapConverter::m_metaKeys[] = {
     KEY_LEFTCTRL,  KEY_RIGHTCTRL,
     KEY_LEFTSHIFT, KEY_RIGHTSHIFT,
     KEY_LEFTALT,   KEY_RIGHTALT,
+    KEY_LEFTMETA,  KEY_RIGHTMETA,
 };
 
 const char* HreMapConverter::m_metaKeyNames[] = {
     "L-CTRL",  "R-CTRL",
     "L-SHIFT", "R-SHIFT",
     "L-ALT",   "R-ALT",
+    "L-WIN",   "R-WIN",
 };
 
 #define metaKeysNum (int(sizeof(m_metaKeys)/sizeof(m_metaKeys[0])))
@@ -245,6 +253,20 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
     assert(input->type == EV_KEY);
     switch (input->code) {
+    case KEY_F1:
+        if (g_enable_function_map && input->value == 1 && NO_METAKEY()) {
+            DP(("Convert F1"));
+            typeKey(KEY_RIGHTALT, 0);
+            typeKey(KEY_1, BIT_LEFTWIN);
+            return true;
+        }
+    case KEY_F2:
+        if (g_enable_function_map && input->value == 1 && NO_METAKEY()) {
+            DP(("Convert F2"));
+            typeKey(KEY_RIGHTALT, 0);
+            typeKey(KEY_2, BIT_LEFTWIN);
+            return true;
+        }
     case KEY_LEFTCTRL:
         return handleMetaKeyInput(input, BIT_LEFTCTRL);
     case KEY_RIGHTCTRL:
