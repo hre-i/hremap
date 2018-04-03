@@ -22,8 +22,8 @@
 
 static void usage()
 {
-    fprintf(stderr, "Usage: x11hremap <options> /dev/input/event<n>\n");
-    fprintf(stderr, "  -c|--disable-ctrl-map: disable ctrl+{h,m} mapping\n");
+    fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
+    fprintf(stderr, "  -e|--enable-ctrl-map: enable ctrl+{h,m} mapping\n");
     fprintf(stderr, "  -n|--no-grab: do not grab device input (for debug)\n");
     fprintf(stderr, "  -d|--debug: enable debug mode\n");
 }
