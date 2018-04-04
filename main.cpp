@@ -34,6 +34,7 @@ bool g_debug = false;
 bool g_enable_ctrl_map = false;
 bool g_enable_function_map = false;
 bool g_caps_to_ctrl = false;
+bool g_jp_to_us = false;
 
 static void sighandle(int signal)
 {
@@ -53,6 +54,10 @@ int main(int argc, char* argv[])
             if (strcmp(argv[i], "-C") == 0
                 || strcmp(argv[i], "--caps-to-ctrl") == 0) {
                 g_caps_to_ctrl = true;
+            }
+            else if (strcmp(argv[i], "-j") == 0
+                || strcmp(argv[i], "--jp-to-us") == 0) {
+                g_jp_to_us = true;
             }
             else if (strcmp(argv[i], "-c") == 0
                 || strcmp(argv[i], "--enable-ctrl-map") == 0) {

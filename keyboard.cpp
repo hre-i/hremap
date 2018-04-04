@@ -92,6 +92,7 @@ void KeyboardDevice::releaseAllKeys(int fd)
 bool KeyboardDevice::getKey(struct input_event* key)
 {
     extern bool g_caps_to_ctrl;
+    extern bool g_jp_to_us;
     ssize_t len;
     do {
         len = read(m_keyfd, key, sizeof(*key));
@@ -100,11 +101,40 @@ bool KeyboardDevice::getKey(struct input_event* key)
     DP(("%ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                     time(NULL), key->type, key->code, key->value, (int)len,
                     key->time.tv_sec, key->time.tv_usec));
+
     if (g_caps_to_ctrl && key->code == KEY_CAPSLOCK) {
         key->code = KEY_LEFTCTRL;
         DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                         time(NULL), key->type, key->code, key->value, (int)len,
                         key->time.tv_sec, key->time.tv_usec));
+    }
+    if (g_jp_to_us) {
+        switch (key->code) {
+        case KEY_RO:
+            key->code = KEY_RIGHTSHIFT;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            ;;
+        case KEY_RIGHTSHIFT:
+            key->code = KEY_RIGHTCTRL;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            ;;
+        case KEY_KATAKANAHIRAGANA:
+            key->code = KEY_RIGHTMETA;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            ;;
+        case KEY_MUHENKAN:
+            key->code = KEY_ESC;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            ;;
+        }
     }
 
     assert(len == (ssize_t)sizeof(*key));
