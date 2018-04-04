@@ -389,7 +389,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             break;
         case 2: // AUTOREPEAT
         case 1: // PRESS
-            if (g_enable_ctrl_map
+            if (g_enable_ctrl_map &&
                     IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
                 DP(("C-H -> TYPE BACKSPACE\n"));
                 typeKey(KEY_BACKSPACE, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
