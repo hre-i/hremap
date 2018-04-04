@@ -321,13 +321,11 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             break;
         case 2: // AUTOREPEAT
         case 1: // PRESS
-            if (g_enable_ctrl_map) {
-                DP(("CTRL MAP %d %d %d\n", IS_CTRL_ON(), IS_ALT_ON(), IS_SHIFT_ON()));
-                   if (IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
+            if (g_enable_ctrl_map
+                    IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
                 DP(("C-H -> TYPE BACKSPACE\n"));
                 typeKey(KEY_BACKSPACE, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
                 return true;
-            }
             }
             break;
         default:
@@ -350,7 +348,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         default:
             DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
-    break;
+        break;
     }
 
     handleKeyDefault(input);
