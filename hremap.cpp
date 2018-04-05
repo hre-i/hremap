@@ -159,18 +159,17 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpRelease & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
+            addOutput(&syn);
         }
     }
-
     input.value = 1;
     for (int i = 0; i < metaKeysNum; i++) {
         if (tmpPress & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
+            addOutput(&syn);
         }
     }
-
-    addOutput(&syn);
 
     /* Press & release the given keycode */
     input.code = code;
@@ -189,6 +188,7 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpPress & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
+            addOutput(&syn);
         }
     }
 
@@ -197,10 +197,9 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpRelease & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
+            addOutput(&syn);
         }
     }
-
-    addOutput(&syn);
 }
 
 void HreMapConverter::pressKey(__u16 code, int metaKeys)
