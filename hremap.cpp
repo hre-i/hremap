@@ -251,6 +251,7 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
 
 bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
+#define WS_MOD  (BIT_LEFTWIN|BIT_LEFTSHIFT|BIT_LEFTCTRL|BIT_LEFTALT)
     assert(input->type == EV_KEY);
     if (g_enable_function_map && NO_METAKEY()) {
         switch (input->code) {
@@ -258,28 +259,28 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             if (input->value == 1) {
                 DP(("Convert F1 -> AltR,Win+1\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_1, BIT_LEFTWIN);
+                typeKey(KEY_F1, WS_MOD);
             }
             return true;
         case KEY_F2:
             if (input->value == 1) {
                 DP(("Convert F2 -> AltR,Win+2\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_2, BIT_LEFTWIN);
+                typeKey(KEY_F2, WS_MOD);
             }
             return true;
         case KEY_F3:
             if (input->value == 1) {
                 DP(("Convert F3 -> AltR,Win+3\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_3, BIT_LEFTWIN);
+                typeKey(KEY_F3, WS_MOD);
             }
             return true;
         case KEY_F4:
             if (input->value == 1) {
                 DP(("Convert F4 -> AltR,Win+4\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_4, BIT_LEFTWIN);
+                typeKey(KEY_F4, WS_MOD);
             }
             return true;
 
