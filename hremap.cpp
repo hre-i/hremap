@@ -241,7 +241,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F1 -> RightCtrl,Win+F1\n"));
+                DP(("F1 -> RightCtrl,Win+Alt+Ctrl+Shift+F1\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F1, WIN_MOD);
@@ -252,7 +252,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F1 -> RightCtrl,Win+F1\n"));
+                DP(("F2 -> RightCtrl,Win+Alt+Ctrl+Shift+F2\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F2, WIN_MOD);
@@ -263,7 +263,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F3 -> RightCtrl,Win+F3\n"));
+                DP(("F3 -> RightCtrl,Win+Alt+Ctrl+Shift+F3\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F3, WIN_MOD);
@@ -274,7 +274,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F4 -> RightCtrl,Win+F4\n"));
+                DP(("F4 -> RightCtrl,Win+Alt+Ctrl+Shift+F4\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F4, WIN_MOD);
@@ -374,7 +374,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             if (g_enable_ctrl_map &&
                     IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
                 DP(("C-M -> TYPE ENTER\n"));
-                typeKey(KEY_ENTER, 0); //m_metaKeyFlags & ~(BIT_RIGHTCTRL|BIT_LEFTCTRL));
+                typeKey(KEY_ENTER, 0);
                 return true;
             }
             break;

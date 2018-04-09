@@ -40,9 +40,7 @@ KeyboardDevice::KeyboardDevice(const char* filename, bool grab)
         device.id.vendor = 1;
         device.id.product = 1;
         device.id.version = 1;
-        if (write(m_userfd, &device, sizeof(device)) < 0) {
-            DP(("***"));
-        }
+        write(m_userfd, &device, sizeof(device));
         ioctl(m_userfd, UI_SET_EVBIT, EV_KEY);
         ioctl(m_userfd, UI_SET_EVBIT, EV_REP);
         for (int i = 0; i < 256; i++)
@@ -75,18 +73,14 @@ void KeyboardDevice::releaseAllKeys(int fd)
     gettimeofday(&(input.time), NULL);
     for (int i = 0; i < 256; i++) {
         input.code = i;
-        if (write(fd, &input, sizeof(input)) < 0) {
-            DP(("*B*"));
-        }
+        write(fd, &input, sizeof(input));
     }
 
     input.type = EV_SYN;
     input.code = SYN_REPORT;
     input.value = 0;
     gettimeofday(&(input.time), NULL);
-    if (write(fd, &input, sizeof(input)) < 0) {
-        DP(("*C*"));
-    }
+    write(fd, &input, sizeof(input));
 }
 
 bool KeyboardDevice::getKey(struct input_event* key)
