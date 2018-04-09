@@ -32,10 +32,11 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 
 | KEY              | MAP                 |
 |------------------|---------------------|
-| KEY_RO           | RightShift          |
+| \ _              | RightShift          |
 | RightShift       | RightCtrl           |
 | KatakanaHiragana | RightMeta(RightWin) |
 | Muhenkan         | Esc                 |
+| Esc              | ` ~                 |
 
 ## インストール方法
 

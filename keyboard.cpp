@@ -104,6 +104,12 @@ bool KeyboardDevice::getKey(struct input_event* key)
     }
     if (g_jp_to_us) {
         switch (key->code) {
+        case KEY_ESC:
+            key->code = KEY_GRAVE;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
         case KEY_RO:
             key->code = KEY_RIGHTSHIFT;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
