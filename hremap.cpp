@@ -394,6 +394,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
         break;
+#if 0
     case KEY_M:
         switch (input->value) {
         case 0:
@@ -411,6 +412,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
         break;
+#endif
     }
 
     handleKeyDefault(input);
