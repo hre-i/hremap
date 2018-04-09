@@ -145,6 +145,7 @@ bool KeyboardDevice::putKey(struct input_event* key)
 {
     ssize_t len;
     do {
+        gettimeofday(&(key->time), NULL);
         len = write(m_userfd, key, sizeof(*key));
     } while (len == -1 && errno == EINTR);
 

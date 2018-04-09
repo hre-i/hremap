@@ -40,7 +40,9 @@ private:
     static const char* m_metaKeyNames[];
 
     struct input_event syn;
-    void addSyn()  { addOutput(&syn); }
+    void addSyn() { addOutput(&syn); }
+    struct input_event sleep;
+    void addSleep() { addOutput(&sleep); }
 
     struct HenkanKey {
         int code;               // 同時に押すコード
@@ -54,6 +56,7 @@ private:
     static HenkanKey m_henkan_keys[];
 };
 
+#define LOCAL_EV_SLEEP  (192)
 
 #endif /* _DEFINE_H_X11HREMAP__ */
 

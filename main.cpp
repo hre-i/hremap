@@ -36,6 +36,8 @@ bool g_enable_function_map = false;
 bool g_caps_to_ctrl = false;
 bool g_jp_to_us = false;
 
+#define DP(x) if (g_debug) printf x
+
 static void sighandle(int signal)
 {
     g_debug = !g_debug;
@@ -141,6 +143,9 @@ int main(int argc, char* argv[])
             conv->getOutput(&key);
             if (key.type == EV_SYN && prev_syn) {
                 ; // skip dup syn
+            } else if (key.type == LOCAL_EV_SLEEP) {
+                DP(("SLEEP\n"));
+                usleep(100000);
             } else {
                 device->putKey(&key);
                 prev_syn = (key.type == EV_SYN);

@@ -27,10 +27,11 @@ public:
 
 protected:
     virtual bool handleInput(struct input_event* input) = 0;
-    void addOutput(struct input_event* output, bool setTime = true);
+    void addOutput(struct input_event* output);
 
 private:
     std::queue<struct input_event> m_output;
 };
 
 #endif /* _DEFINE_H_X11KEYMACS_CONV_ */
+

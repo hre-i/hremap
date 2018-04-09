@@ -25,14 +25,7 @@ bool Converter::getOutput(struct input_event* output)
     return true;
 }
 
-void Converter::addOutput(struct input_event* output, bool setTime)
+void Converter::addOutput(struct input_event* output)
 {
-    if (setTime) {
-        struct input_event ev = *output;
-        gettimeofday(&(ev.time), NULL);
-        m_output.push(ev);
-    }
-    else {
-        m_output.push(*output);
-    }
+    m_output.push(*output);
 }

@@ -81,6 +81,11 @@ HreMapConverter::HreMapConverter()
     syn.type = EV_SYN;
     syn.code = SYN_REPORT;
     syn.value = 0;
+
+    memset(&sleep, 0, sizeof(sleep));
+    sleep.type = LOCAL_EV_SLEEP;
+    sleep.code = 0;
+    sleep.value = 0;
 }
 
 HreMapConverter::~HreMapConverter()
