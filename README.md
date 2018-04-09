@@ -24,14 +24,18 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 | CTRL + h | Backspace |
 | PAUSE    | Ctrl + h  |
 
-- -f|--enable-function-map オプション
-
-  F1,F2,F3,F4 を押下した際に，Alt+R が先に送られる。
-
-- -C|--caps-to-ctrl
+- -C|--caps-to-ctrl オプション
 
   CAPS を LEFTCTRL に変換する。
 
+- -j|-jp-to-us オプション
+
+| KEY              | MAP                 |
+|------------------|---------------------|
+| KEY_RO           | RightShift          |
+| RightShift       | RightCtrl           |
+| KatakanaHiragana | RightMeta(RightWin) |
+| Muhenkan         | Esc                 |
 
 ## インストール方法
 
