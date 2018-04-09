@@ -35,7 +35,7 @@ KeyboardDevice::KeyboardDevice(const char* filename, bool grab)
     if (m_userfd >= 0) {
         struct uinput_user_dev device;
         memset(&device, 0, sizeof(device));
-        strcpy(device.name, "x11keyemacs");
+        strcpy(device.name, "hremap");
         device.id.bustype = BUS_VIRTUAL;
         device.id.vendor = 1;
         device.id.product = 1;
