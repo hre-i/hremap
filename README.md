@@ -15,14 +15,23 @@
 | HENKAN + u         | App (Compose)            |
 | HENKAN + 1,2,...,0 | F1,F2,...,F10            |
 
-- -e|--enable-ctrl-map オプションを付けた場合
+HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
 
-| KEY                | MAP                      |
-|--------------------|--------------------------|
-| CTRL + h           | Backspace                |
-| CTRL + m           | Enter                    |
+- -e|--enable-ctrl-map オプション
 
-HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通します。
+| KEY      | MAP       |
+|----------|-----------|
+| CTRL + h | Backspace |
+| PAUSE    | Ctrl + h  |
+
+- -f|--enable-function-map オプション
+
+  F1,F2,F3,F4 を押下した際に，Alt+R が先に送られる。
+
+- -C|--caps-to-ctrl
+
+  CAPS を LEFTCTRL に変換する。
+
 
 ## インストール方法
 
