@@ -228,88 +228,29 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
 
 bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
-#define WS_MOD  (BIT_LEFTWIN|BIT_LEFTSHIFT|BIT_LEFTCTRL|BIT_LEFTALT)
     assert(input->type == EV_KEY);
     if (g_enable_function_map && NO_METAKEY()) {
         switch (input->code) {
         case KEY_F1:
             if (input->value == 1) {
-                DP(("Convert F1 -> AltR,Win+1\n"));
+                DP(("Insert AltR\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_F1, WS_MOD);
             }
-            return true;
         case KEY_F2:
             if (input->value == 1) {
-                DP(("Convert F2 -> AltR,Win+2\n"));
+                DP(("Insert AltR\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_F2, WS_MOD);
             }
-            return true;
         case KEY_F3:
             if (input->value == 1) {
-                DP(("Convert F3 -> AltR,Win+3\n"));
+                DP(("Insert AltR\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_F3, WS_MOD);
             }
-            return true;
         case KEY_F4:
             if (input->value == 1) {
-                DP(("Convert F4 -> AltR,Win+4\n"));
+                DP(("Insert AltR\n"));
                 typeKey(KEY_RIGHTALT, 0);
-                typeKey(KEY_F4, WS_MOD);
             }
-            return true;
-
-        case KEY_F5:
-            if (input->value == 1) {
-                DP(("Convert F5 -> Win+Left\n"));
-                typeKey(KEY_LEFT, BIT_LEFTWIN);
-            }
-            return true;
-        case KEY_F6:
-            if (input->value == 1) {
-                DP(("Convert F6 -> Win+Down\n"));
-                typeKey(KEY_DOWN, BIT_LEFTWIN);
-            }
-            return true;
-        case KEY_F7:
-            if (input->value == 1) {
-                DP(("Convert F7 -> Win+Up\n"));
-                typeKey(KEY_UP, BIT_LEFTWIN);
-            }
-            return true;
-        case KEY_F8:
-            if (input->value == 1) {
-                DP(("Convert F8 -> Win+Right\n"));
-                typeKey(KEY_RIGHT, BIT_LEFTWIN);
-            }
-            return true;
-
-        case KEY_F9:
-            if (input->value == 1) {
-                DP(("Convert F9 -> Win+Shift+Left\n"));
-                typeKey(KEY_LEFT, BIT_LEFTWIN|BIT_LEFTSHIFT);
-            }
-            return true;
-        case KEY_F10:
-            if (input->value == 1) {
-                DP(("Convert F10 -> Win+Shift+Down\n"));
-                typeKey(KEY_DOWN, BIT_LEFTWIN|BIT_LEFTSHIFT);
-            }
-            return true;
-        case KEY_F11:
-            if (input->value == 1) {
-                DP(("Convert F11 -> Win+Shift+Up\n"));
-                typeKey(KEY_UP, BIT_LEFTWIN|BIT_LEFTSHIFT);
-            }
-            return true;
-        case KEY_F12:
-            if (input->value == 1) {
-                DP(("Convert F12 -> Win+Shift+Right\n"));
-                typeKey(KEY_RIGHT, BIT_LEFTWIN|BIT_LEFTSHIFT);
-            }
-            return true;
         }
     }
     switch (input->code) {
