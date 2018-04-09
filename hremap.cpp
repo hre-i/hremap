@@ -233,28 +233,52 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
 
 bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
+#define WIN_MOD (BIT_LEFTWIN|BIT_LEFTALT|BIT_LEFTCTRL|BIT_LEFTSHIFT)
     assert(input->type == EV_KEY);
     if (g_enable_function_map && NO_METAKEY()) {
         switch (input->code) {
         case KEY_F1:
-            if (input->value == 1) {
-                DP(("Insert AltR\n"));
-                typeKey(KEY_RIGHTALT, 0);
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("F1 -> RightCtrl,Win+F1\n"));
+                typeKey(KEY_RIGHTCTRL, -1);
+                addSleep();
+                typeKey(KEY_F1, WIN_MOD);
+                return true;
             }
+
         case KEY_F2:
-            if (input->value == 1) {
-                DP(("Insert AltR\n"));
-                typeKey(KEY_RIGHTALT, 0);
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("F1 -> RightCtrl,Win+F1\n"));
+                typeKey(KEY_RIGHTCTRL, -1);
+                addSleep();
+                typeKey(KEY_F2, WIN_MOD);
+                return true;
             }
+
         case KEY_F3:
-            if (input->value == 1) {
-                DP(("Insert AltR\n"));
-                typeKey(KEY_RIGHTALT, 0);
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("F3 -> RightCtrl,Win+F3\n"));
+                typeKey(KEY_RIGHTCTRL, -1);
+                addSleep();
+                typeKey(KEY_F3, WIN_MOD);
+                return true;
             }
+
         case KEY_F4:
-            if (input->value == 1) {
-                DP(("Insert AltR\n"));
-                typeKey(KEY_RIGHTALT, 0);
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("F4 -> RightCtrl,Win+F4\n"));
+                typeKey(KEY_RIGHTCTRL, -1);
+                addSleep();
+                typeKey(KEY_F4, WIN_MOD);
+                return true;
             }
         }
     }
