@@ -134,29 +134,30 @@ void HreMapConverter::setMetaKeys(int tmpRelease, int tmpPress)
 
 void HreMapConverter::typeKey(__u16 code, int metaKeys)
 {
-    int tmpRelease = m_metaKeyFlags & ~metaKeys;
-    int tmpPress = ~m_metaKeyFlags & metaKeys;
-
     struct input_event input;
     memset(&input, 0, sizeof(input));
     input.type = EV_KEY;
 
+    int tmpRelease = m_metaKeyFlags & ~metaKeys;
+    int tmpPress = ~m_metaKeyFlags & metaKeys;
+
     /* Change meta-key states to metaKeys */
-    input.value = 0;
-    for (int i = 0; i < metaKeysNum; i++) {
-        if (tmpRelease & m_metaBits[i]) {
-            input.code = m_metaKeys[i];
-            addOutput(&input);
-            addSyn();
+    if (metaKeys >= 0) {
+        input.value = 0;
+        for (int i = 0; i < metaKeysNum; i++) {
+            if (tmpRelease & m_metaBits[i]) {
+                input.code = m_metaKeys[i];
+                addOutput(&input);
+            }
         }
-    }
-    input.value = 1;
-    for (int i = 0; i < metaKeysNum; i++) {
-        if (tmpPress & m_metaBits[i]) {
-            input.code = m_metaKeys[i];
-            addOutput(&input);
-            addSyn();
+        input.value = 1;
+        for (int i = 0; i < metaKeysNum; i++) {
+            if (tmpPress & m_metaBits[i]) {
+                input.code = m_metaKeys[i];
+                addOutput(&input);
+            }
         }
+        addSyn();
     }
 
     /* Press & release the given keycode */
@@ -170,23 +171,24 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
     addOutput(&input);
     addSyn();
 
-    /* Change meta-key states back to m_metaKeyFlags */
-    input.value = 0;
-    for (int i = 0; i < metaKeysNum; i++) {
-        if (tmpPress & m_metaBits[i]) {
-            input.code = m_metaKeys[i];
-            addOutput(&input);
-            addSyn();
+    if (metaKeys >= 0) {
+        /* Change meta-key states back to m_metaKeyFlags */
+        input.value = 0;
+        for (int i = 0; i < metaKeysNum; i++) {
+            if (tmpPress & m_metaBits[i]) {
+                input.code = m_metaKeys[i];
+                addOutput(&input);
+            }
         }
-    }
 
-    input.value = 1;
-    for (int i = 0; i < metaKeysNum; i++) {
-        if (tmpRelease & m_metaBits[i]) {
-            input.code = m_metaKeys[i];
-            addOutput(&input);
-            addSyn();
+        input.value = 1;
+        for (int i = 0; i < metaKeysNum; i++) {
+            if (tmpRelease & m_metaBits[i]) {
+                input.code = m_metaKeys[i];
+                addOutput(&input);
+            }
         }
+        addSyn();
     }
 }
 
