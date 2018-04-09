@@ -2,7 +2,7 @@
  * hremap -- key remapper for Linux
  * (C) IMAI Hiroei
  *
- * Copyright 2017 (C) IMAI Hiroei
+ * Copyright 2017,2018 (C) IMAI Hiroei
  *
  * conv.h: keyboard input converter (abstract)
  */
@@ -19,6 +19,7 @@
 class HreMapConverter : public Converter
 {
 public:
+    HreMapConverter();
     virtual ~HreMapConverter();
 
 protected:
@@ -38,6 +39,9 @@ private:
     static const __u16 m_metaKeys[];
     static const char* m_metaKeyNames[];
 
+    struct input_event syn;
+    void addSyn()  { addOutput(&syn); }
+
     struct HenkanKey {
         int code;               // 同時に押すコード
         int mapped;             // 変換後コード
@@ -48,8 +52,6 @@ private:
     int m_metaKeyFlags;
     bool m_henkan_state;
     static HenkanKey m_henkan_keys[];
-
-    bool m_state_pasteNewline;
 };
 
 

@@ -75,6 +75,17 @@ HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
     { -1, 0, 0 }
 };
 
+HreMapConverter::HreMapConverter()
+{
+    memset(&syn, 0, sizeof(syn));
+    syn.type = EV_SYN;
+    syn.code = SYN_REPORT;
+    syn.value = 0;
+}
+
+HreMapConverter::~HreMapConverter()
+{}
+
 HreMapConverter::HenkanKey* HreMapConverter::find_henkan_keys(int code)
 {
     for (HreMapConverter::HenkanKey* p = m_henkan_keys; p->code != 0; ++p) {
@@ -83,9 +94,6 @@ HreMapConverter::HenkanKey* HreMapConverter::find_henkan_keys(int code)
     }
     return NULL;
 }
-
-HreMapConverter::~HreMapConverter()
-{}
 
 bool HreMapConverter::handleMetaKeyInput(struct input_event* input, int bit)
 {
@@ -99,10 +107,10 @@ bool HreMapConverter::handleMetaKeyInput(struct input_event* input, int bit)
 
 void HreMapConverter::setMetaKeys(int tmpRelease, int tmpPress)
 {
-
     /* Change meta-key states to metaKeys */
     struct input_event input;
     memset(&input, 0, sizeof(input));
+    input.type = EV_KEY;
     input.value = 0;
     for (int i = 0; i < metaKeysNum; i++) {
         if (tmpRelease & m_metaBits[i]) {
@@ -121,37 +129,17 @@ void HreMapConverter::setMetaKeys(int tmpRelease, int tmpPress)
         }
     }
 
-    struct input_event syn;
-    memset(&syn, 0, sizeof(syn));
-    input.type = EV_KEY;
-    syn.type = EV_SYN;
-    syn.code = SYN_REPORT;
-    syn.value = 0;
-    addOutput(&syn);
+    addSyn();
 }
 
 void HreMapConverter::typeKey(__u16 code, int metaKeys)
 {
     int tmpRelease = m_metaKeyFlags & ~metaKeys;
     int tmpPress = ~m_metaKeyFlags & metaKeys;
-    // static const int bits[] = {
-    //     BIT_LEFTCTRL, BIT_RIGHTCTRL,
-    //     BIT_LEFTSHIFT, BIT_RIGHTSHIFT,
-    //     BIT_LEFTALT, BIT_RIGHTALT,
-    // };
-    // static const __u16 keys[] = {
-    //     KEY_LEFTCTRL, KEY_RIGHTCTRL,
-    //     KEY_LEFTSHIFT, KEY_RIGHTSHIFT,
-    //     KEY_LEFTALT, KEY_RIGHTALT,
-    // };
 
-    struct input_event input, syn;
+    struct input_event input;
     memset(&input, 0, sizeof(input));
     input.type = EV_KEY;
-    memset(&syn, 0, sizeof(syn));
-    syn.type = EV_SYN;
-    syn.code = SYN_REPORT;
-    syn.value = 0;
 
     /* Change meta-key states to metaKeys */
     input.value = 0;
@@ -159,7 +147,7 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpRelease & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
-            addOutput(&syn);
+            addSyn();
         }
     }
     input.value = 1;
@@ -167,7 +155,7 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpPress & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
-            addOutput(&syn);
+            addSyn();
         }
     }
 
@@ -176,11 +164,11 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
 
     input.value = 1;
     addOutput(&input);
-    addOutput(&syn);
+    addSyn();
 
     input.value = 0;
     addOutput(&input);
-    addOutput(&syn);
+    addSyn();
 
     /* Change meta-key states back to m_metaKeyFlags */
     input.value = 0;
@@ -188,7 +176,7 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpPress & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
-            addOutput(&syn);
+            addSyn();
         }
     }
 
@@ -197,7 +185,7 @@ void HreMapConverter::typeKey(__u16 code, int metaKeys)
         if (tmpRelease & m_metaBits[i]) {
             input.code = m_metaKeys[i];
             addOutput(&input);
-            addOutput(&syn);
+            addSyn();
         }
     }
 }
@@ -216,13 +204,7 @@ void HreMapConverter::pressKey(__u16 code, int metaKeys)
     input.code = code;
     input.value = 1;
     addOutput(&input);
-
-    struct input_event syn;
-    memset(&syn, 0, sizeof(syn));
-    syn.type = EV_SYN;
-    syn.code = SYN_REPORT;
-    syn.value = 0;
-    addOutput(&syn);
+    addSyn();
 }
 
 void HreMapConverter::releaseKey(__u16 code, int metaKeys)
@@ -233,13 +215,7 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
     input.code = code;
     input.value = 0;
     addOutput(&input);
-
-    struct input_event syn;
-    memset(&syn, 0, sizeof(syn));
-    syn.type = EV_SYN;
-    syn.code = SYN_REPORT;
-    syn.value = 0;
-    addOutput(&syn);
+    addSyn();
 
     if (metaKeys >= 0) {
         int tmpRelease = m_metaKeyFlags & ~metaKeys;
