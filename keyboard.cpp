@@ -110,6 +110,12 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));
             break;
+        case KEY_SCROLLLOCK:
+            key->code = KEY_CAPSLOCK;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
         case KEY_RO:
             key->code = KEY_RIGHTSHIFT;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
