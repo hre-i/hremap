@@ -17,20 +17,20 @@ extern bool g_enable_function_map;
 #define BIT_RIGHTSHIFT (1 << 3)
 #define BIT_LEFTALT    (1 << 4)
 #define BIT_RIGHTALT   (1 << 5)
-#define BIT_LEFTWIN    (1 << 6)
-#define BIT_RIGHTWIN   (1 << 7)
+#define BIT_LEFTMETA   (1 << 6)
+#define BIT_RIGHTMETA  (1 << 7)
 
 #define IS_CTRL_ON()   ((m_metaKeyFlags & (BIT_LEFTCTRL|BIT_RIGHTCTRL)) != 0)
 #define IS_SHIFT_ON()  ((m_metaKeyFlags & (BIT_LEFTSHIFT|BIT_RIGHTSHIFT)) != 0)
 #define IS_ALT_ON()    ((m_metaKeyFlags & (BIT_LEFTALT|BIT_RIGHTALT)) != 0)
-#define IS_WIN_ON()    ((m_metaKeyFlags & (BIT_LEFTWIN|BIT_RIGHTWIN)) != 0)
-#define NO_METAKEY()   (m_metaKeyFlags == 0)
+#define IS_WIN_ON()    ((m_metaKeyFlags & (BIT_LEFTMETA|BIT_RIGHTMETA)) != 0)
+#define IS_RMETA_ONLY() (m_metaKeyFlags == BIT_RIGHTMETA)
 
 const int HreMapConverter::m_metaBits[] = {
     BIT_LEFTCTRL,  BIT_RIGHTCTRL,
     BIT_LEFTSHIFT, BIT_RIGHTSHIFT,
     BIT_LEFTALT,   BIT_RIGHTALT,
-    BIT_LEFTWIN,   BIT_RIGHTWIN,
+    BIT_LEFTMETA,  BIT_RIGHTMETA,
 };
 
 const __u16 HreMapConverter::m_metaKeys[] = {
@@ -233,18 +233,21 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
 
 bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
-#define WIN_MOD (BIT_LEFTWIN|BIT_LEFTALT|BIT_LEFTCTRL|BIT_LEFTSHIFT)
+#define WIN_MOD (BIT_LEFTMETA|BIT_LEFTALT|BIT_LEFTCTRL|BIT_LEFTSHIFT)
     assert(input->type == EV_KEY);
-    if (g_enable_function_map && NO_METAKEY()) {
+    DP(("m_metaKeyFlags = %d\n", m_metaKeyFlags));
+    if (g_enable_function_map && IS_RMETA_ONLY()) {
         switch (input->code) {
         case KEY_F1:
             switch (input->value) {
             case 2:
             case 1:
                 DP(("F1 -> RightCtrl,Win+Alt+Ctrl+Shift+F1\n"));
+		releaseKey(KEY_RIGHTMETA, -1);
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F1, WIN_MOD);
+		pressKey(KEY_RIGHTMETA, -1);
                 return true;
             }
 
@@ -253,9 +256,11 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             case 2:
             case 1:
                 DP(("F2 -> RightCtrl,Win+Alt+Ctrl+Shift+F2\n"));
+		releaseKey(KEY_RIGHTMETA, -1);
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F2, WIN_MOD);
+		pressKey(KEY_RIGHTMETA, -1);
                 return true;
             }
 
@@ -264,9 +269,11 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             case 2:
             case 1:
                 DP(("F3 -> RightCtrl,Win+Alt+Ctrl+Shift+F3\n"));
+		releaseKey(KEY_RIGHTMETA, -1);
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F3, WIN_MOD);
+		pressKey(KEY_RIGHTMETA, -1);
                 return true;
             }
 
@@ -275,9 +282,11 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             case 2:
             case 1:
                 DP(("F4 -> RightCtrl,Win+Alt+Ctrl+Shift+F4\n"));
+		releaseKey(KEY_RIGHTMETA, -1);
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_F4, WIN_MOD);
+		pressKey(KEY_RIGHTMETA, -1);
                 return true;
             }
         }
@@ -295,6 +304,10 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         return handleMetaKeyInput(input, BIT_LEFTALT);
     case KEY_RIGHTALT:
         return handleMetaKeyInput(input, BIT_RIGHTALT);
+    case KEY_LEFTMETA:
+        return handleMetaKeyInput(input, BIT_LEFTMETA);
+    case KEY_RIGHTMETA:
+        return handleMetaKeyInput(input, BIT_RIGHTMETA);
     case KEY_HENKAN:
         if (input->value == 0) {
             // Henkan がリリースされたら，同時押しの press 状態を解除する
