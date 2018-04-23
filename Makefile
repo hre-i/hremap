@@ -10,7 +10,7 @@ OBJS = $(addsuffix .o, $(basename $(SOURCES)))
 D ?= -DDEBUG
 CXXFLAGS += -Wall -O2 -g $D
 LDFLAGS += -Wall -O2 -g
-LOADLIBES += -lboost_regex
+LOADLIBES += #-lboost_regex
 
 all: $(TARGET)
 

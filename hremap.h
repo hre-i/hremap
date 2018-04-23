@@ -12,8 +12,9 @@
 
 #include <vector>
 #include <string>
+#include <assert.h>
+#include <string.h>
 #include <linux/input.h>
-#include <boost/regex.hpp>
 #include "conv.h"
 
 class HreMapConverter : public Converter
