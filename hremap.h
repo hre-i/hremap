@@ -54,6 +54,7 @@ private:
 
     int m_metaKeyFlags;
     bool m_henkan_state;
+    bool m_muhenkan_state;
     static HenkanKey m_henkan_keys[];
 };
 

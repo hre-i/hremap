@@ -25,6 +25,7 @@ extern bool g_enable_function_map;
 #define IS_ALT_ON()    ((m_metaKeyFlags & (BIT_LEFTALT|BIT_RIGHTALT)) != 0)
 #define IS_WIN_ON()    ((m_metaKeyFlags & (BIT_LEFTMETA|BIT_RIGHTMETA)) != 0)
 #define IS_RMETA_ONLY() (m_metaKeyFlags == BIT_RIGHTMETA)
+#define IS_ALL_OFF()    (m_metaKeyFlags == 0)
 
 const int HreMapConverter::m_metaBits[] = {
     BIT_LEFTCTRL,  BIT_RIGHTCTRL,
@@ -236,59 +237,175 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
 #define WIN_MOD (BIT_LEFTMETA|BIT_LEFTALT|BIT_LEFTCTRL|BIT_LEFTSHIFT)
     assert(input->type == EV_KEY);
     DP(("m_metaKeyFlags = %d\n", m_metaKeyFlags));
-    if (g_enable_function_map && IS_RMETA_ONLY()) {
+    if (g_enable_function_map && m_muhenkan_state) {
         switch (input->code) {
-        case KEY_F1:
+        case KEY_1:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F1 -> RightCtrl,Win+Alt+Ctrl+Shift+F1\n"));
-		releaseKey(KEY_RIGHTMETA, -1);
+                DP(("MUHEN+1 -> RightCtrl,Win+Alt+Ctrl+Shift+1\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
-                typeKey(KEY_F1, WIN_MOD);
-		pressKey(KEY_RIGHTMETA, -1);
+                typeKey(KEY_1, WIN_MOD);
                 return true;
             }
+	    break;
 
-        case KEY_F2:
+        case KEY_2:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F2 -> RightCtrl,Win+Alt+Ctrl+Shift+F2\n"));
-		releaseKey(KEY_RIGHTMETA, -1);
+                DP(("MUHAN+2 -> RightCtrl,Win+Alt+Ctrl+Shift+2\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
-                typeKey(KEY_F2, WIN_MOD);
-		pressKey(KEY_RIGHTMETA, -1);
+                typeKey(KEY_2, WIN_MOD);
                 return true;
             }
+	    break;
 
-        case KEY_F3:
+        case KEY_3:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F3 -> RightCtrl,Win+Alt+Ctrl+Shift+F3\n"));
-		releaseKey(KEY_RIGHTMETA, -1);
+                DP(("MUHEN+3 -> RightCtrl,Win+Alt+Ctrl+Shift+3\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
-                typeKey(KEY_F3, WIN_MOD);
-		pressKey(KEY_RIGHTMETA, -1);
+                typeKey(KEY_3, WIN_MOD);
                 return true;
             }
+	    break;
 
-        case KEY_F4:
+        case KEY_4:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F4 -> RightCtrl,Win+Alt+Ctrl+Shift+F4\n"));
-		releaseKey(KEY_RIGHTMETA, -1);
+                DP(("MUHEN+4 -> RightCtrl,Win+Alt+Ctrl+Shift+4\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
-                typeKey(KEY_F4, WIN_MOD);
-		pressKey(KEY_RIGHTMETA, -1);
+                typeKey(KEY_4, WIN_MOD);
                 return true;
             }
+	    break;
+
+        case KEY_H:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+H -> Win+Alt+Ctrl+Shift+H\n"));
+                typeKey(KEY_H, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_J:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+J -> Win+Alt+Ctrl+Shift+J\n"));
+                typeKey(KEY_J, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_K:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+K -> Win+Alt+Ctrl+Shift+K\n"));
+                typeKey(KEY_K, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_L:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+L -> Win+Alt+Ctrl+Shift+L\n"));
+                typeKey(KEY_L, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_Y:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+Y -> Win+Alt+Ctrl+Shift+I\n"));
+                typeKey(KEY_Y, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_U:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+U -> Win+Alt+Ctrl+Shift+O\n"));
+                typeKey(KEY_U, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_I:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+I -> Win+Alt+Ctrl+Shift+I\n"));
+                typeKey(KEY_I, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_O:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+O -> Win+Alt+Ctrl+Shift+O\n"));
+                typeKey(KEY_O, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_Q:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+Q -> Win+Alt+Ctrl+Shift+Q\n"));
+                typeKey(KEY_Q, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_W:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+W -> Win+Alt+Ctrl+Shift+W\n"));
+                typeKey(KEY_W, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_A:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+A -> Win+Alt+Ctrl+Shift+A\n"));
+                typeKey(KEY_A, WIN_MOD);
+                return true;
+            }
+	    break;
+
+        case KEY_S:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+S -> Win+Alt+Ctrl+Shift+S\n"));
+                typeKey(KEY_S, WIN_MOD);
+                return true;
+            }
+	    break;
         }
     }
     switch (input->code) {
@@ -308,6 +425,13 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         return handleMetaKeyInput(input, BIT_LEFTMETA);
     case KEY_RIGHTMETA:
         return handleMetaKeyInput(input, BIT_RIGHTMETA);
+    case KEY_MUHENKAN:
+        if (input->value == 0) {
+            m_muhenkan_state = false;
+        } else {
+            m_muhenkan_state = true;
+        }
+        return true;
     case KEY_HENKAN:
         if (input->value == 0) {
             // Henkan がリリースされたら，同時押しの press 状態を解除する

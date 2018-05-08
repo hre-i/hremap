@@ -22,7 +22,8 @@ if [ ! -z "$DEV" ]; then
         *) ;;
     esac
     while true; do
-	/usr/local/bin/hremap --enable-function-map --enable-ctrl-map --jp-to-us --caps-to-ctrl $DEV
+	# /usr/local/bin/hremap --enable-function-map --enable-ctrl-map --hhk-jp-to-us $DEV
+	/usr/local/bin/hremap --enable-function-map --enable-ctrl-map --jp-to-us $DEV
 	sleep 2
     done
 else

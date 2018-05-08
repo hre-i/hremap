@@ -23,9 +23,10 @@
 static void usage()
 {
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
-    fprintf(stderr, "  -C|--caps-to-ctrl: convert caps to left ctrl\n");
     fprintf(stderr, "  -c|--enable-ctrl-map: enable ctrl+{h,m} mapping\n");
     fprintf(stderr, "  -f|--enable-function-map: enable mappings with function keys\n");
+    fprintf(stderr, "  -f|--jp-to-us: enable mappings for jp keyboard\n");
+    fprintf(stderr, "  -h|--hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
     fprintf(stderr, "  -n|--no-grab: do not grab device input (for debug)\n");
     fprintf(stderr, "  -d|--debug: enable debug mode\n");
 }
@@ -35,6 +36,7 @@ bool g_enable_ctrl_map = false;
 bool g_enable_function_map = false;
 bool g_caps_to_ctrl = false;
 bool g_jp_to_us = false;
+bool g_hhk_jp_to_us = false;
 
 #define DP(x) if (g_debug) printf x
 
@@ -56,6 +58,10 @@ int main(int argc, char* argv[])
             if (strcmp(argv[i], "-C") == 0
                 || strcmp(argv[i], "--caps-to-ctrl") == 0) {
                 g_caps_to_ctrl = true;
+            }
+            else if (strcmp(argv[i], "-h") == 0
+                || strcmp(argv[i], "--hhk-jp-to-us") == 0) {
+                g_hhk_jp_to_us = true;
             }
             else if (strcmp(argv[i], "-j") == 0
                 || strcmp(argv[i], "--jp-to-us") == 0) {
