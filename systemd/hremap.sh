@@ -16,6 +16,19 @@ do
     fi
 done
 
+opt=--enable-ctrl-map
+case x"$DEV" in
+*ErgoDox*)	
+    opt=--enabel-ctrl-map
+    ;;
+*HHKB*)
+    opt="--enable-muhenkan-map --hhk-jp-to-us"
+    ;;
+*RealForce*)
+    opt="--enable-muhenkan-map --enable-function-map --jp-to-us --caps-to-ctrl"
+    ;;
+esac
+
 if [ ! -z "$DEV" ]; then
     case x"`pidof x11hremap`" in
         x[0-9]*) sudo killall hremap ;;
@@ -23,7 +36,8 @@ if [ ! -z "$DEV" ]; then
     esac
     while true; do
 	# /usr/local/bin/hremap --enable-function-map --enable-ctrl-map --hhk-jp-to-us $DEV
-	/usr/local/bin/hremap --enable-function-map --enable-ctrl-map --jp-to-us $DEV
+	# /usr/local/bin/hremap --enable-function-map --enable-ctrl-map --jp-to-us $DEV
+	/usr/local/bin/hremap ${opt} $DEV
 	sleep 2
     done
 else
