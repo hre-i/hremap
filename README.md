@@ -49,6 +49,14 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 
 | KEY              | MAP                                      |
 |------------------|------------------------------------------|
+| F1,F2,F3,F4      | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
+| F5,F6,F7,F8      | Alt+Shift+Ctrl+Win+h,j,k,l               |
+| F9,F10,F11,F12   | Alt+Shift+Ctrl+Win+y,u,i.o               |
+
+- -m|--enable-muhankan-map オプション
+
+| KEY              | MAP                                      |
+|------------------|------------------------------------------|
 | Muhenkan+1,2,3,4 | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
 | Muhenkan+h,j,k,l | Alt+Shift+Ctrl+Win+h,j,k,l               |
 | Muhenkan+q,w,a,s | Alt+Shift+Ctrl+Win+q,w,a,s               |
