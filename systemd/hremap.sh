@@ -22,10 +22,13 @@ case x"$DEV" in
     opt=--enabel-ctrl-map
     ;;
 *HHKB*)
-    opt="--enable-muhenkan-map --hhk-jp-to-us"
+    opt="--enable-muhenkan-map --hhk-jp-to-us $opt"
     ;;
 *RealForce*)
-    opt="--enable-muhenkan-map --enable-function-map --jp-to-us --caps-to-ctrl"
+    opt="--enable-muhenkan-map --enable-function-map --jp-to-us --caps-to-ctrl $opt"
+    ;;
+*platform-i8042*)
+    opt="--enable-muhenkan-map --enable-function-map $opt"
     ;;
 esac
 
@@ -35,8 +38,6 @@ if [ ! -z "$DEV" ]; then
         *) ;;
     esac
     while true; do
-	# /usr/local/bin/hremap --enable-function-map --enable-ctrl-map --hhk-jp-to-us $DEV
-	# /usr/local/bin/hremap --enable-function-map --enable-ctrl-map --jp-to-us $DEV
 	/usr/local/bin/hremap ${opt} $DEV
 	sleep 2
     done
