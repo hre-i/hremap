@@ -538,6 +538,16 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 return true;
             }
 	    break;
+
+        case KEY_Z:
+            switch (input->value) {
+            case 2:
+            case 1:
+                DP(("MUHEN+Z -> Win+Alt+Ctrl+Shift+Z\n"));
+                typeKey(KEY_Z, WIN_MOD);
+                return true;
+            }
+	    break;
         }
     }
     switch (input->code) {
