@@ -244,7 +244,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F1 -> RightCtrl,Win+Alt+Ctrl+Shift+1\n"));
+                DP(("F* -> RightCtrl,Win+Alt+Ctrl+Shift+*\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_1, WIN_MOD);
@@ -371,170 +371,27 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
     }
     if (g_enable_muhenkan_map && m_muhenkan_state) {
         switch (input->code) {
-        case KEY_1:
+        case KEY_1: case KEY_2: case KEY_3: case KEY_4:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("MUHEN+1 -> RightCtrl,Win+Alt+Ctrl+Shift+1\n"));
+                DP(("MUHEN+* -> RightCtrl,Win+Alt+Ctrl+Shift+*\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
-                typeKey(KEY_1, WIN_MOD);
+                typeKey(input->code, WIN_MOD);
                 return true;
             }
 	    break;
 
-        case KEY_2:
+        case KEY_H: case KEY_J: case KEY_K: case KEY_L:
+        case KEY_Y: case KEY_U: case KEY_I: case KEY_O:
+        case KEY_Q: case KEY_W: case KEY_A: case KEY_S:
+        case KEY_Z: case KEY_X: case KEY_C: case KEY_V:
             switch (input->value) {
             case 2:
             case 1:
-                DP(("MUHAN+2 -> RightCtrl,Win+Alt+Ctrl+Shift+2\n"));
-                typeKey(KEY_RIGHTCTRL, -1);
-                addSleep();
-                typeKey(KEY_2, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_3:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+3 -> RightCtrl,Win+Alt+Ctrl+Shift+3\n"));
-                typeKey(KEY_RIGHTCTRL, -1);
-                addSleep();
-                typeKey(KEY_3, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_4:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+4 -> RightCtrl,Win+Alt+Ctrl+Shift+4\n"));
-                typeKey(KEY_RIGHTCTRL, -1);
-                addSleep();
-                typeKey(KEY_4, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_H:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+H -> Win+Alt+Ctrl+Shift+H\n"));
-                typeKey(KEY_H, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_J:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+J -> Win+Alt+Ctrl+Shift+J\n"));
-                typeKey(KEY_J, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_K:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+K -> Win+Alt+Ctrl+Shift+K\n"));
-                typeKey(KEY_K, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_L:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+L -> Win+Alt+Ctrl+Shift+L\n"));
-                typeKey(KEY_L, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_Y:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+Y -> Win+Alt+Ctrl+Shift+I\n"));
-                typeKey(KEY_Y, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_U:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+U -> Win+Alt+Ctrl+Shift+O\n"));
-                typeKey(KEY_U, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_I:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+I -> Win+Alt+Ctrl+Shift+I\n"));
-                typeKey(KEY_I, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_O:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+O -> Win+Alt+Ctrl+Shift+O\n"));
-                typeKey(KEY_O, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_Q:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+Q -> Win+Alt+Ctrl+Shift+Q\n"));
-                typeKey(KEY_Q, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_W:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+W -> Win+Alt+Ctrl+Shift+W\n"));
-                typeKey(KEY_W, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_A:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+A -> Win+Alt+Ctrl+Shift+A\n"));
-                typeKey(KEY_A, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_S:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+S -> Win+Alt+Ctrl+Shift+S\n"));
-                typeKey(KEY_S, WIN_MOD);
+                DP(("MUHEN+* -> Win+Alt+Ctrl+Shift+*\n"));
+                typeKey(input->code, WIN_MOD);
                 return true;
             }
 	    break;
