@@ -19,7 +19,7 @@ done
 opt=--enable-ctrl-map
 case x"$DEV" in
 *ErgoDox*)	
-    opt=--enabel-ctrl-map
+    opt="$opt"
     ;;
 *HHKB*)
     opt="--enable-muhenkan-map --hhk-jp-to-us $opt"
