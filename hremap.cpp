@@ -369,6 +369,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
 	    break;
 	}
     }
+#if 0
     if (g_enable_muhenkan_map && m_muhenkan_state) {
         switch (input->code) {
         case KEY_1: case KEY_2: case KEY_3: case KEY_4:
@@ -400,6 +401,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
 
         }
     }
+#endif
     switch (input->code) {
     case KEY_LEFTCTRL:
         return handleMetaKeyInput(input, BIT_LEFTCTRL);
@@ -418,12 +420,22 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
     case KEY_RIGHTMETA:
         return handleMetaKeyInput(input, BIT_RIGHTMETA);
     case KEY_MUHENKAN:
-        if (input->value == 0) {
-            m_muhenkan_state = false;
-        } else {
-            m_muhenkan_state = true;
+        if (g_enable_muhenkan_map) {
+          if (input->value == 0) {
+              m_muhenkan_state = false;
+              releaseKey(KEY_LEFTCTRL, -1);
+              releaseKey(KEY_LEFTALT, -1);
+              releaseKey(KEY_LEFTSHIFT, -1);
+              releaseKey(KEY_LEFTMETA, -1);
+          } else {
+              pressKey(KEY_LEFTMETA, -1);
+              pressKey(KEY_LEFTSHIFT, -1);
+              pressKey(KEY_LEFTALT, -1);
+              pressKey(KEY_LEFTCTRL, -1);
+              m_muhenkan_state = true;
+          }
+          return true;
         }
-        return true;
     case KEY_HENKAN:
         if (input->value == 0) {
             // Henkan がリリースされたら，同時押しの press 状態を解除する
