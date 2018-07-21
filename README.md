@@ -58,10 +58,7 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 | KEY              | MAP                                      |
 |------------------|------------------------------------------|
 | Muhenkan+1,2,3,4 | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
-| Muhenkan+h,j,k,l | Alt+Shift+Ctrl+Win+h,j,k,l               |
-| Muhenkan+q,w,a,s | Alt+Shift+Ctrl+Win+q,w,a,s               |
-| Muhenkan+y,u,i,o | Alt+Shift+Ctrl+Win+y,u,i.o               |
-| Muhenkan+z,x,c,v | Alt+Shift+Ctrl+Win+z,x,c,v               |
+| Muhenkan+[a-z]   | Alt+Shift+Ctrl+Win+[a-z]                 |
 
 ## インストール方法
 
