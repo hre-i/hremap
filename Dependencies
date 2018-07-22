@@ -1,0 +1,4 @@
+keyboard.o: keyboard.cpp keyboard.h
+conv.o: conv.cpp conv.h
+hremap.o: hremap.cpp hremap.h conv.h
+main.o: main.cpp keyboard.h conv.h hremap.h
