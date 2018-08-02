@@ -85,7 +85,6 @@ void KeyboardDevice::releaseAllKeys(int fd)
 
 bool KeyboardDevice::getKey(struct input_event* key)
 {
-    extern bool g_caps_to_ctrl;
     extern bool g_jp_to_us;
     extern bool g_hhk_jp_to_us;
     ssize_t len;
@@ -112,8 +111,14 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             key->time.tv_sec, key->time.tv_usec));
             break;
 
-        case KEY_SCROLLLOCK:
-            key->code = KEY_CAPSLOCK;
+        case KEY_CAPSLOCK:
+            key->code = KEY_LEFTCTRL;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
+        case KEY_LEFTCTRL:
+            key->code = KEY_MUHENKAN;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));

@@ -43,7 +43,9 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 | RightShift       | RightCtrl           |
 | KatakanaHiragana | RightMeta(RightWin) |
 | Muhenkan         | Esc                 |
+| CapsLock         | RightCtrl           |
 | ` ~              | Muhenkan            |
+| LeftCtrl         | Muhenkan            |
 
 - -f|--enable-function-map オプション
 

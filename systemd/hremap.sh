@@ -22,7 +22,7 @@ case x"$DEV" in
     opt="$opt"
     ;;
 *HHKB*)
-    opt="--enable-muhenkan-map --hhk-jp-to-us $opt"
+    opt="--enable-muhenkan-map --enable-function-map hhk-jp-to-us $opt"
     ;;
 *RealForce*)
     opt="--enable-muhenkan-map --enable-function-map --jp-to-us --caps-to-ctrl $opt"
