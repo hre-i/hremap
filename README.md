@@ -6,6 +6,8 @@
 
 ## キーマップ
 
+- --henkan-map
+
 | KEY                | MAP                      |
 |--------------------|--------------------------|
 | HENKAN + h/j/k/l   | Left / Down / Up / Right |
@@ -14,14 +16,26 @@
 | HENKAN + m         | Delete                   |
 | HENKAN + u         | App (Compose)            |
 | HENKAN + 1,2,...,0 | F1,F2,...,F10            |
+| HENKAN             | HENKAN                   |
 
 HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
+
+- --muhenkan-map
+
+| KEY                | MAP                      |
+|--------------------|--------------------------|
+| HENKAN + ????      | ALT + ????               |
+| MUHENKAN           | MUHENKAN                 |
+
+MUHENKAN のみの場合は，MUHENKAN を入力される
+MUHENKAN と他のキーの同時押しの場合は，LALT + ???? が入力される
 
 - -e|--enable-ctrl-map オプション
 
 | KEY      | MAP       |
 |----------|-----------|
 | CTRL + h | Backspace |
+| CTRL + m | Enter     |
 | PAUSE    | Ctrl + h  |
 
 - -j|-jp-to-us オプション
@@ -31,21 +45,22 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 | \ _              | RightShift          |
 | RightShift       | RightCtrl           |
 | KatakanaHiragana | RightMeta(RightWin) |
-| Muhenkan         | Esc                 |
-| Esc              | ` ~                 |
-| LeftCtrl         | Muhenkan            |
+| CapsLock         | RightCtrl           |
+| LeftCtrl         | Katakana            |
+| ScrollLock	   | CapsLock            |
 
 - -h|-hhk-jp-to-us オプション
 
 | KEY              | MAP                 |
 |------------------|---------------------|
+| ` ~              | Muhenkan            |
+| ESC              | ` ~                 |
 | \ _              | RightShift          |
 | RightShift       | RightCtrl           |
 | KatakanaHiragana | RightMeta(RightWin) |
-| Muhenkan         | Esc                 |
+| LeftCtrl         | Katakana            |
 | CapsLock         | RightCtrl           |
-| ` ~              | Muhenkan            |
-| LeftCtrl         | Muhenkan            |
+| ScrollLock	   | CapsLock            |
 
 - -f|--enable-function-map オプション
 
@@ -54,13 +69,6 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 | F1,F2,F3,F4      | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
 | F5,F6,F7,F8      | Alt+Shift+Ctrl+Win+h,j,k,l               |
 | F9,F10,F11,F12   | Alt+Shift+Ctrl+Win+y,u,i.o               |
-
-- -m|--enable-muhankan-map オプション
-
-| KEY              | MAP                                      |
-|------------------|------------------------------------------|
-| Muhenkan+1,2,3,4 | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
-| Muhenkan+[a-z]   | Alt+Shift+Ctrl+Win+[a-z]                 |
 
 ## インストール方法
 

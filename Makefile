@@ -17,12 +17,6 @@ all: $(TARGET)
 clean:
 	rm -f $(TARGET) $(OBJS) $(DEPFILE) *~
 
-tarball: clean
-	if test -e .git; \
-	then git archive --prefix x11hremap/ --format tar HEAD | gzip > ../x11hremap.tar.gz; \
-	else cd ..; tar cvzf x11hremap.tar.gz x11hremap/; \
-	fi
-
 depend:
 	rm -f $(DEPFILE)
 	g++ $(CXXFLAGS) -MM $(SOURCES) > $(DEPFILE)

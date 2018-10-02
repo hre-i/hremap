@@ -23,19 +23,22 @@
 static void usage()
 {
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
-    fprintf(stderr, "  -c|--enable-ctrl-map: enable ctrl+{h,m} mapping\n");
-    fprintf(stderr, "  -f|--enable-function-map: enable mappings with function keys\n");
-    fprintf(stderr, "  -f|--enable-muhenkan-map: enable mappings with muhenkan key\n");
-    fprintf(stderr, "  -f|--jp-to-us: enable mappings for jp keyboard\n");
-    fprintf(stderr, "  -h|--hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
-    fprintf(stderr, "  -n|--no-grab: do not grab device input (for debug)\n");
-    fprintf(stderr, "  -d|--debug: enable debug mode\n");
+    fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
+    fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
+    fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
+    fprintf(stderr, "  --function-map: enable mappings with function keys\n");
+    fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
+    fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
+    fprintf(stderr, "  --no-grab: do not grab device input (for debug)\n");
+    fprintf(stderr, "  --debug: enable debug mode\n");
 }
 
 bool g_debug = false;
 bool g_enable_ctrl_map = false;
 bool g_enable_function_map = false;
+bool g_enable_henkan_map = false;
 bool g_enable_muhenkan_map = false;
+bool g_enable_katakana_map = false;
 bool g_jp_to_us = false;
 bool g_hhk_jp_to_us = false;
 
@@ -64,17 +67,20 @@ int main(int argc, char* argv[])
                 || strcmp(argv[i], "--jp-to-us") == 0) {
                 g_jp_to_us = true;
             }
-            else if (strcmp(argv[i], "-c") == 0
-                || strcmp(argv[i], "--enable-ctrl-map") == 0) {
+            else if (strcmp(argv[i], "--ctrl-map") == 0) {
                 g_enable_ctrl_map = true;
             }
-            else if (strcmp(argv[i], "-f") == 0
-                || strcmp(argv[i], "--enable-function-map") == 0) {
+            else if (strcmp(argv[i], "--function-map") == 0) {
                 g_enable_function_map = true;
             }
-            else if (strcmp(argv[i], "-m") == 0
-                || strcmp(argv[i], "--enable-muhenkan-map") == 0) {
+            else if (strcmp(argv[i], "--henkan-map") == 0) {
+                g_enable_henkan_map = true;
+            }
+            else if (strcmp(argv[i], "--muhenkan-map") == 0) {
                 g_enable_muhenkan_map = true;
+            }
+            else if (strcmp(argv[i], "--katakana-map") == 0) {
+                g_enable_katakana_map = true;
             }
             else if (strcmp(argv[i], "-n") == 0
                 || strcmp(argv[i], "--no-grab") == 0) {

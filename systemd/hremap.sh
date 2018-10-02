@@ -19,16 +19,16 @@ done
 opt=--enable-ctrl-map
 case x"$DEV" in
 *ErgoDox*)	
-    opt="$opt"
+    opt="--henkan-map --muhenkan-map $opt"
     ;;
 *HHKB*)
-    opt="--enable-muhenkan-map --enable-function-map --hhk-jp-to-us $opt"
+    opt="--heknan-map --muhenkan-map --function-map --hhk-jp-to-us $opt"
     ;;
 *RealForce*)
-    opt="--enable-muhenkan-map --enable-function-map --jp-to-us $opt"
+    opt="--heknan-map --muhenkan-map --function-map --jp-to-us $opt"
     ;;
 *platform-i8042*)
-    opt="--enable-muhenkan-map --enable-function-map $opt"
+    opt="--heknan-map --muhenkan-map --function-map $opt"
     ;;
 esac
 

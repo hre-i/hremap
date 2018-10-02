@@ -19,6 +19,7 @@
 #include <string.h>
 #include "keyboard.h"
 
+extern bool g_enable_katakana_map;
 extern bool g_debug;
 #define DP(x) if (g_debug) printf x
 
@@ -96,7 +97,7 @@ bool KeyboardDevice::getKey(struct input_event* key)
                     time(NULL), key->type, key->code, key->value, (int)len,
                     key->time.tv_sec, key->time.tv_usec));
 
-    if (g_hhk_jp_to_us) {
+    if (g_hhk_jp_to_us || g_jp_to_us) {
         switch (key->code) {
         case KEY_SCROLLLOCK:
             key->code = KEY_CAPSLOCK;
@@ -104,6 +105,43 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));
             break;
+        case KEY_RO:
+            key->code = KEY_RIGHTSHIFT;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
+        case KEY_RIGHTSHIFT:
+            key->code = KEY_RIGHTCTRL;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
+        case KEY_CAPSLOCK:
+            key->code = KEY_LEFTCTRL;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
+        case KEY_KATAKANAHIRAGANA:
+            key->code = KEY_RIGHTMETA;
+            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                            time(NULL), key->type, key->code, key->value, (int)len,
+                            key->time.tv_sec, key->time.tv_usec));
+            break;
+        case KEY_LEFTCTRL:
+            if (g_enable_katakana_map) {
+                key->code = KEY_KATAKANA;
+                DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                                time(NULL), key->type, key->code, key->value, (int)len,
+                                key->time.tv_sec, key->time.tv_usec));
+            }
+            break;
+        }
+    }
+
+    if (g_hhk_jp_to_us) {
+        switch (key->code) {
         case KEY_GRAVE:
             key->code = KEY_MUHENKAN;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
@@ -116,90 +154,13 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));
             break;
-
-        case KEY_CAPSLOCK:
-            key->code = KEY_LEFTCTRL;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
         case KEY_LEFTCTRL:
-            key->code = KEY_MUHENKAN;
+            key->code = KEY_KATAKANA;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));
             break;
-        case KEY_RO:
-            key->code = KEY_RIGHTSHIFT;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_RIGHTSHIFT:
-            key->code = KEY_RIGHTCTRL;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_KATAKANAHIRAGANA:
-            key->code = KEY_RIGHTMETA;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_MUHENKAN:
-            key->code = KEY_ESC;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-	}
-    }
-    if (g_jp_to_us) {
-        switch (key->code) {
-        case KEY_SCROLLLOCK:
-            key->code = KEY_CAPSLOCK;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_RO:
-            key->code = KEY_RIGHTSHIFT;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_RIGHTSHIFT:
-            key->code = KEY_RIGHTCTRL;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_KATAKANAHIRAGANA:
-            key->code = KEY_RIGHTMETA;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_MUHENKAN:
-            key->code = KEY_ESC;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
-        case KEY_CAPSLOCK:
-	    key->code = KEY_LEFTCTRL;
-	    DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-			    time(NULL), key->type, key->code, key->value, (int)len,
-			    key->time.tv_sec, key->time.tv_usec));
-	    break;
-        case KEY_LEFTCTRL:
-	    key->code = KEY_MUHENKAN;
-	    DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-			    time(NULL), key->type, key->code, key->value, (int)len,
-			    key->time.tv_sec, key->time.tv_usec));
-	    break;
-	}
+        }
     }
 
     assert(len == (ssize_t)sizeof(*key));

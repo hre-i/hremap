@@ -10,7 +10,9 @@ extern bool g_debug;
 
 extern bool g_enable_ctrl_map;
 extern bool g_enable_function_map;
+extern bool g_enable_henkan_map;
 extern bool g_enable_muhenkan_map;
+extern bool g_enable_katakana_map;
 
 #define BIT_LEFTCTRL   (1 << 0)
 #define BIT_RIGHTCTRL  (1 << 1)
@@ -250,7 +252,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_1, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F2:
             switch (input->value) {
@@ -262,7 +264,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_2, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F3:
             switch (input->value) {
@@ -274,7 +276,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_3, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F4:
             switch (input->value) {
@@ -286,7 +288,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_4, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F5:
             switch (input->value) {
@@ -296,7 +298,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_H, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F6:
             switch (input->value) {
@@ -306,7 +308,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_J, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F7:
             switch (input->value) {
@@ -316,7 +318,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_K, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F8:
             switch (input->value) {
@@ -326,7 +328,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_L, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F9:
             switch (input->value) {
@@ -336,7 +338,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_Y, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F10:
             switch (input->value) {
@@ -346,7 +348,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_U, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F11:
             switch (input->value) {
@@ -356,7 +358,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_I, WIN_MOD);
                 return true;
             }
-	    break;
+            break;
 
         case KEY_F12:
             switch (input->value) {
@@ -366,42 +368,10 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 typeKey(KEY_O, WIN_MOD);
                 return true;
             }
-	    break;
-	}
-    }
-#if 0
-    if (g_enable_muhenkan_map && m_muhenkan_state) {
-        switch (input->code) {
-        case KEY_1: case KEY_2: case KEY_3: case KEY_4:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+* -> RightCtrl,Win+Alt+Ctrl+Shift+*\n"));
-                typeKey(KEY_RIGHTCTRL, -1);
-                addSleep();
-                typeKey(input->code, WIN_MOD);
-                return true;
-            }
-	    break;
-
-        case KEY_Q: case KEY_W: case KEY_E: case KEY_R: case KEY_T:
-        case KEY_Y: case KEY_U: case KEY_I: case KEY_O: case KEY_P:
-        case KEY_A: case KEY_S: case KEY_D: case KEY_F: case KEY_G:
-        case KEY_H: case KEY_J: case KEY_K: case KEY_L:
-        case KEY_Z: case KEY_X: case KEY_C: case KEY_V: case KEY_B:
-        case KEY_M: case KEY_N:
-            switch (input->value) {
-            case 2:
-            case 1:
-                DP(("MUHEN+* -> Win+Alt+Ctrl+Shift+*\n"));
-                typeKey(input->code, WIN_MOD);
-                return true;
-            }
-	    break;
-
+            break;
         }
-    }
-#endif
+    } // enable_function_map
+
     switch (input->code) {
     case KEY_LEFTCTRL:
         return handleMetaKeyInput(input, BIT_LEFTCTRL);
@@ -419,55 +389,88 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         return handleMetaKeyInput(input, BIT_LEFTMETA);
     case KEY_RIGHTMETA:
         return handleMetaKeyInput(input, BIT_RIGHTMETA);
-    case KEY_MUHENKAN:
-        if (g_enable_muhenkan_map) {
+
+    case KEY_KATAKANA:
+        if (g_enable_katakana_map) {
           if (input->value == 0) {
-              m_muhenkan_state = false;
-              releaseKey(KEY_LEFTCTRL, -1);
-              releaseKey(KEY_LEFTALT, -1);
+              releaseKey(KEY_LEFTCTRL,  -1);
+              releaseKey(KEY_LEFTALT,   -1);
               releaseKey(KEY_LEFTSHIFT, -1);
-              releaseKey(KEY_LEFTMETA, -1);
+              releaseKey(KEY_LEFTMETA,  -1);
           } else {
-              pressKey(KEY_LEFTMETA, -1);
+              pressKey(KEY_LEFTMETA,  -1);
               pressKey(KEY_LEFTSHIFT, -1);
-              pressKey(KEY_LEFTALT, -1);
-              pressKey(KEY_LEFTCTRL, -1);
-              m_muhenkan_state = true;
+              pressKey(KEY_LEFTALT,   -1);
+              pressKey(KEY_LEFTCTRL,  -1);
           }
           return true;
         }
-    case KEY_HENKAN:
-        if (input->value == 0) {
-            // Henkan がリリースされたら，同時押しの press 状態を解除する
-            for (HenkanKey* p = m_henkan_keys; p->code >= 0; ++p) {
-                if (p->pressed) {
-                    releaseKey(p->mapped, -1);
-                    p->pressed = false;
-                }
-            }
-            // TODO: 同時押しされている(本来の)キーをプレス状態にする必要があるか？
-            m_henkan_state = false;
-        } else {
-            m_henkan_state = true;
-        }
-        return true;
     }
 
-    if (m_henkan_state) {
-        for (HenkanKey* p = m_henkan_keys; p->code >= 0; ++p) {
-            if (p->code == input->code) {
-                if (input->value == 0) {
-                    DP(("HENKAN PRESS OFF:(%d -> %d)\n", p->code, p->mapped));
-                    releaseKey(p->mapped, -1);
-                    p->pressed = false;
-                    return true;
-                } else if (input->value > 0) {
-                    DP(("HENKAN PRESS ON:(%d -> %d)\n", p->code, p->mapped));
-                    pressKey(p->mapped, -1);
-                    p->pressed = true;
-                    return true;
+    if (g_enable_muhenkan_map) {
+        if (input->code == KEY_HENKAN) {
+            if (input->value == 0) {
+                if (m_henkan_only) {
+                    typeKey(KEY_HENKAN, -1);
+                } else {
+                    // Henkan がリリースされたら，同時押しの press 状態を解除する
+                    for (HenkanKey* p = m_henkan_keys; p->code >= 0; ++p) {
+                        if (p->pressed) {
+                            releaseKey(p->mapped, -1);
+                            p->pressed = false;
+                        }
+                    }
+                    // TODO: 同時押しされている(本来の)キーをプレス状態にする必要があるか？
+                }
+                m_henkan_state = false;
+            } else {
+                m_henkan_state = true;
+                m_henkan_only = true;
+            }
+            return true;
+        }
+        if (m_henkan_state) {
+            m_henkan_only = false;
+            for (HenkanKey* p = m_henkan_keys; p->code >= 0; ++p) {
+                if (p->code == input->code) {
+                    if (input->value == 0) {
+                        DP(("HENKAN PRESS OFF:(%d -> %d)\n", p->code, p->mapped));
+                        releaseKey(p->mapped, -1);
+                        p->pressed = false;
+                        return true;
+                    } else if (input->value > 0) {
+                        DP(("HENKAN PRESS ON:(%d -> %d)\n", p->code, p->mapped));
+                        pressKey(p->mapped, -1);
+                        p->pressed = true;
+                        return true;
+                    }
                 }
             }
+        }
+    }
+
+    if (g_enable_muhenkan_map) {
+        if (input->code == KEY_MUHENKAN) {
+            if (input->value == 0) {
+                if (m_muhenkan_only) {
+                    DP(("MUHENKAN TYPE\n"));
+                    typeKey(KEY_MUHENKAN, -1);
+                } else {
+                    DP(("MUHENKAN_TO_LALT RELEASE\n"));
+                    releaseKey(KEY_LEFTALT, -1);
+                }
+                m_muhenkan_state = false;
+            } else {
+                DP(("MUHENKAN ON\n"));
+                m_muhenkan_state = true;
+                m_muhenkan_only = true;
+            }
+            return true;
+        }
+        if (m_muhenkan_state && m_muhenkan_only) {
+            DP(("MUHENKAN_TO_LALT PRESS"));
+            m_muhenkan_only = false;
+            pressKey(KEY_LEFTALT, -1);
         }
     }
 
@@ -505,7 +508,6 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
         break;
-#if 0
     case KEY_M:
         switch (input->value) {
         case 0:
@@ -523,7 +525,6 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
         }
         break;
-#endif
     }
 
     handleKeyDefault(input);
