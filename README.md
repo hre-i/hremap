@@ -10,6 +10,7 @@
 
 | KEY                | MAP                      |
 |--------------------|--------------------------|
+| HENKAN + SPC       | ESC                      |
 | HENKAN + h/j/k/l   | Left / Down / Up / Right |
 | HENKAN + i/o       | PgUp / PgDn              |
 | HENKAN + ,/.       | Home / End               |

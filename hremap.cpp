@@ -54,6 +54,7 @@ const char* HreMapConverter::m_metaKeyNames[] = {
 #define metaKeysNum (int(sizeof(m_metaKeys)/sizeof(m_metaKeys[0])))
 
 HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
+    { KEY_SPACE, KEY_ESC,       false },
     { KEY_H,     KEY_LEFT,      false },
     { KEY_J,     KEY_DOWN,      false },
     { KEY_K,     KEY_UP,        false },
