@@ -16,19 +16,19 @@ do
     fi
 done
 
-opt=--enable-ctrl-map
+opt=--ctrl-map
 case x"$DEV" in
 *ErgoDox*)	
-    opt="--henkan-map --muhenkan-map $opt"
+    opt="$opt"
     ;;
 *HHKB*)
-    opt="--heknan-map --muhenkan-map --function-map --hhk-jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --lalt-to-esc --function-map --hhk-jp-to-us $opt"
     ;;
 *RealForce*)
-    opt="--heknan-map --muhenkan-map --function-map --jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --lalt-to-esc --function-map --jp-to-us $opt"
     ;;
 *platform-i8042*)
-    opt="--heknan-map --muhenkan-map --function-map $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --lalt-to-esc --function-map $opt"
     ;;
 esac
 

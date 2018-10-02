@@ -29,6 +29,7 @@ static void usage()
     fprintf(stderr, "  --function-map: enable mappings with function keys\n");
     fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
     fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
+    fprintf(stderr, "  --lalt-to-esc: enable mapping left-alt to esc\n");
     fprintf(stderr, "  --no-grab: do not grab device input (for debug)\n");
     fprintf(stderr, "  --debug: enable debug mode\n");
 }
@@ -39,6 +40,7 @@ bool g_enable_function_map = false;
 bool g_enable_henkan_map = false;
 bool g_enable_muhenkan_map = false;
 bool g_enable_katakana_map = false;
+bool g_lalt_to_esc = false;
 bool g_jp_to_us = false;
 bool g_hhk_jp_to_us = false;
 
@@ -81,6 +83,9 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--katakana-map") == 0) {
                 g_enable_katakana_map = true;
+            }
+            else if (strcmp(argv[i], "--lalt-to-esc") == 0) {
+                g_lalt_to_esc = true;
             }
             else if (strcmp(argv[i], "-n") == 0
                 || strcmp(argv[i], "--no-grab") == 0) {

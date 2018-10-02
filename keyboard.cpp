@@ -20,6 +20,7 @@
 #include "keyboard.h"
 
 extern bool g_enable_katakana_map;
+extern bool g_lalt_to_esc;
 extern bool g_debug;
 #define DP(x) if (g_debug) printf x
 
@@ -96,6 +97,10 @@ bool KeyboardDevice::getKey(struct input_event* key)
     DP(("%ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                     time(NULL), key->type, key->code, key->value, (int)len,
                     key->time.tv_sec, key->time.tv_usec));
+
+    if (g_lalt_to_esc && key->code == KEY_LEFTALT) {
+	key->code = KEY_ESC;
+    }
 
     if (g_hhk_jp_to_us || g_jp_to_us) {
         switch (key->code) {
