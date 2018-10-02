@@ -24,6 +24,9 @@ depend:
 install:
 	install -m 755 -s $(TARGET) /usr/local/bin/
 
+setup:
+	(cd systemd && sudo ./setup.sh)
+
 .PHONY: all clean install tarball depend test stop
 
 $(TARGET): $(OBJS)
