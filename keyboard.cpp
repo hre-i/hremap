@@ -98,10 +98,6 @@ bool KeyboardDevice::getKey(struct input_event* key)
                     time(NULL), key->type, key->code, key->value, (int)len,
                     key->time.tv_sec, key->time.tv_usec));
 
-    if (g_lalt_to_esc && key->code == KEY_LEFTALT) {
-	key->code = KEY_ESC;
-    }
-
     if (g_hhk_jp_to_us || g_jp_to_us) {
         switch (key->code) {
         case KEY_SCROLLLOCK:
@@ -159,13 +155,11 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));
             break;
-        case KEY_LEFTCTRL:
-            key->code = KEY_KATAKANA;
-            DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-                            time(NULL), key->type, key->code, key->value, (int)len,
-                            key->time.tv_sec, key->time.tv_usec));
-            break;
         }
+    }
+
+    if (g_lalt_to_esc && key->code == KEY_LEFTALT) {
+	key->code = KEY_ESC;
     }
 
     assert(len == (ssize_t)sizeof(*key));
