@@ -408,7 +408,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         }
     }
 
-    if (g_enable_muhenkan_map) {
+    if (g_enable_henkan_map) {
         if (input->code == KEY_HENKAN) {
             if (input->value == 0) {
                 if (m_henkan_only) {
