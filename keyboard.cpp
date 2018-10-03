@@ -20,6 +20,7 @@
 #include "keyboard.h"
 
 extern bool g_enable_katakana_map;
+extern bool g_muhenkan_to_kana;
 extern bool g_lalt_to_esc;
 extern bool g_debug;
 #define DP(x) if (g_debug) printf x
@@ -160,6 +161,10 @@ bool KeyboardDevice::getKey(struct input_event* key)
 
     if (g_lalt_to_esc && key->code == KEY_LEFTALT) {
 	key->code = KEY_ESC;
+    }
+
+    if (g_muhenkan_to_kana && key->code == KEY_MUHENKAN) {
+	key->code = KEY_KATAKANA;
     }
 
     assert(len == (ssize_t)sizeof(*key));
