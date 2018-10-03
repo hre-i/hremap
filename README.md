@@ -17,6 +17,10 @@
 | HENKAN + m         | Delete                   |
 | HENKAN + u         | App (Compose)            |
 | HENKAN + 1,2,...,0 | F1,F2,...,F10            |
+| HENKAN + a         | MUHENKAN                 |
+| HENKAN + s         | HENKAN                   |
+| HENKAN + d         | MUHENKAN                 |
+| HENKAN + f         | HENKAN                   |
 | HENKAN             | HENKAN                   |
 
 HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
