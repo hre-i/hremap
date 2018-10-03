@@ -28,7 +28,7 @@ case x"$DEV" in
     opt="--henkan-map --muhenkan-map --katakana-map --lalt-to-esc --function-map --jp-to-us $opt"
     ;;
 *platform-i8042*)
-    opt="--henkan-map --muhenkan-map --katakana-map --lalt-to-esc --function-map $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --ralt-to-kana --function-map $opt"
     ;;
 esac
 
