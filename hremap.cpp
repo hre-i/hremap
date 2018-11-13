@@ -242,7 +242,7 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
 
 bool HreMapConverter::handleKeyInput(struct input_event* input)
 {
-#define WIN_MOD (BIT_LEFTMETA|BIT_LEFTALT|BIT_LEFTCTRL|BIT_LEFTSHIFT)
+#define WIN_MOD (BIT_LEFTMETA|BIT_LEFTCTRL|BIT_LEFTSHIFT)
     assert(input->type == EV_KEY);
     DP(("m_metaKeyFlags = %d\n", m_metaKeyFlags));
     if (g_enable_function_map && IS_ALL_OFF()) {
@@ -251,7 +251,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F* -> RightCtrl,Win+Alt+Ctrl+Shift+*\n"));
+                DP(("F* -> RightCtrl,Win+Ctrl+Shift+*\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_1, WIN_MOD);
@@ -263,7 +263,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F2 -> RightCtrl,Win+Alt+Ctrl+Shift+2\n"));
+                DP(("F2 -> RightCtrl,Win+Ctrl+Shift+2\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_2, WIN_MOD);
@@ -275,7 +275,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F3 -> RightCtrl,Win+Alt+Ctrl+Shift+3\n"));
+                DP(("F3 -> RightCtrl,Win+Ctrl+Shift+3\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_3, WIN_MOD);
@@ -287,7 +287,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F4 -> RightCtrl,Win+Alt+Ctrl+Shift+4\n"));
+                DP(("F4 -> RightCtrl,Win+Ctrl+Shift+4\n"));
                 typeKey(KEY_RIGHTCTRL, -1);
                 addSleep();
                 typeKey(KEY_4, WIN_MOD);
@@ -299,7 +299,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F5 -> Win+Alt+Ctrl+Shift+H\n"));
+                DP(("F5 -> Win+Ctrl+Shift+H\n"));
                 typeKey(KEY_H, WIN_MOD);
                 return true;
             }
@@ -309,7 +309,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F6 -> Win+Alt+Ctrl+Shift+J\n"));
+                DP(("F6 -> Win+Ctrl+Shift+J\n"));
                 typeKey(KEY_J, WIN_MOD);
                 return true;
             }
@@ -319,7 +319,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F7 -> Win+Alt+Ctrl+Shift+K\n"));
+                DP(("F7 -> Win+Ctrl+Shift+K\n"));
                 typeKey(KEY_K, WIN_MOD);
                 return true;
             }
@@ -329,7 +329,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F8 -> Win+Alt+Ctrl+Shift+L\n"));
+                DP(("F8 -> Win+Ctrl+Shift+L\n"));
                 typeKey(KEY_L, WIN_MOD);
                 return true;
             }
@@ -339,7 +339,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F9 -> Win+Alt+Ctrl+Shift+I\n"));
+                DP(("F9 -> Win+Ctrl+Shift+I\n"));
                 typeKey(KEY_Y, WIN_MOD);
                 return true;
             }
@@ -349,7 +349,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F10 -> Win+Alt+Ctrl+Shift+O\n"));
+                DP(("F10 -> Win+Ctrl+Shift+O\n"));
                 typeKey(KEY_U, WIN_MOD);
                 return true;
             }
@@ -359,7 +359,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F11 -> Win+Alt+Ctrl+Shift+I\n"));
+                DP(("F11 -> Win+Ctrl+Shift+I\n"));
                 typeKey(KEY_I, WIN_MOD);
                 return true;
             }
@@ -369,7 +369,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
             switch (input->value) {
             case 2:
             case 1:
-                DP(("F12 -> Win+Alt+Ctrl+Shift+O\n"));
+                DP(("F12 -> Win+Ctrl+Shift+O\n"));
                 typeKey(KEY_O, WIN_MOD);
                 return true;
             }
