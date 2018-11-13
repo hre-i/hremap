@@ -45,6 +45,7 @@ bool g_lalt_to_esc = false;
 bool g_jp_to_us = false;
 bool g_hhk_jp_to_us = false;
 bool g_muhenkan_to_kana = false;
+bool g_muhenkan_to_esc = false;
 bool g_ralt_to_kana = false;
 
 #define DP(x) if (g_debug) printf x
@@ -92,6 +93,9 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--muhenkan-to-kana") == 0) {
                 g_muhenkan_to_kana = true;
+            }
+            else if (strcmp(argv[i], "--muhenkan-to-esc") == 0) {
+                g_muhenkan_to_esc = true;
             }
             else if (strcmp(argv[i], "--ralt-to-kana") == 0) {
                 g_ralt_to_kana = true;
