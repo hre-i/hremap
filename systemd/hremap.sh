@@ -9,6 +9,7 @@ for d in \
     /dev/input/by-id/usb-PFU_Limited_HHKB_Professional_JP-event-kbd \
     /dev/input/by-id/usb-Topre_Corporation_RealForce_Compact-event-kbd \
     /dev/input/by-path/platform-i8042-serio-0-event-kbd \
+    /dev/input/by-id/usb-Microsoft_Surface_Type_Cover-event-kbd \
     /dev/input/event2
 do
     if [ -c "$d" -a -z "$DEV" ]; then
@@ -25,6 +26,9 @@ case x"$DEV" in
     opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-to-esc --function-map --hhk-jp-to-us $opt"
     ;;
 *RealForce*)
+    opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-to-esc --function-map --jp-to-us $opt"
+    ;;
+*Microsoft_Surface*)
     opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-to-esc --function-map --jp-to-us $opt"
     ;;
 *platform-i8042*)
