@@ -399,13 +399,13 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         if (g_enable_katakana_map) {
           if (input->value == 0) {
               releaseKey(KEY_LEFTCTRL,  -1);
-              releaseKey(KEY_LEFTALT,   -1);
+              //releaseKey(KEY_LEFTALT,   -1);
               releaseKey(KEY_LEFTSHIFT, -1);
               releaseKey(KEY_LEFTMETA,  -1);
           } else {
               pressKey(KEY_LEFTMETA,  -1);
               pressKey(KEY_LEFTSHIFT, -1);
-              pressKey(KEY_LEFTALT,   -1);
+              //pressKey(KEY_LEFTALT,   -1);
               pressKey(KEY_LEFTCTRL,  -1);
           }
           return true;
