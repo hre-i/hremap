@@ -10,6 +10,7 @@ for d in \
     /dev/input/by-id/usb-Topre_Corporation_RealForce_Compact-event-kbd \
     /dev/input/by-path/platform-i8042-serio-0-event-kbd \
     /dev/input/by-id/usb-Microsoft_Surface_Type_Cover-event-kbd \
+    /dev/input/by-id/usb-Ultimate_Gadget_Laboratories_Ultimate_Hacking_Keyboard-if01-event-kbd \
     /dev/input/event2
 do
     if [ -c "$d" -a -z "$DEV" ]; then
@@ -30,6 +31,8 @@ case x"$DEV" in
     ;;
 *Microsoft_Surface*)
     opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-to-esc --function-map --jp-to-us $opt"
+    ;;
+*Ultimate_Hacking_Keyboard*)
     ;;
 *platform-i8042*)
     opt="--henkan-map --muhenkan-map --katakana-map --ralt-to-kana --function-map $opt"
