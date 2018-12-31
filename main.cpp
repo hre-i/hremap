@@ -26,7 +26,6 @@ static void usage()
     fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
     fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
     fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
-    fprintf(stderr, "  --function-map: enable mappings with function keys\n");
     fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
     fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
     fprintf(stderr, "  --lalt-to-esc: enable mapping left-alt to esc\n");
@@ -37,7 +36,6 @@ static void usage()
 
 bool g_debug = false;
 bool g_enable_ctrl_map = false;
-bool g_enable_function_map = false;
 bool g_enable_henkan_map = false;
 bool g_enable_muhenkan_map = false;
 bool g_enable_katakana_map = false;
@@ -75,9 +73,6 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--ctrl-map") == 0) {
                 g_enable_ctrl_map = true;
-            }
-            else if (strcmp(argv[i], "--function-map") == 0) {
-                g_enable_function_map = true;
             }
             else if (strcmp(argv[i], "--henkan-map") == 0) {
                 g_enable_henkan_map = true;

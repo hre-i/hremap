@@ -67,14 +67,6 @@ MUHENKAN と他のキーの同時押しの場合は，LALT + ???? が入力さ�
 | CapsLock         | RightCtrl           |
 | ScrollLock	   | CapsLock            |
 
-- -f|--enable-function-map オプション
-
-| KEY              | MAP                                      |
-|------------------|------------------------------------------|
-| F1,F2,F3,F4      | RightCtrl,Alt+Shift+Ctrl+Win+1,2,3,4     |
-| F5,F6,F7,F8      | Alt+Shift+Ctrl+Win+h,j,k,l               |
-| F9,F10,F11,F12   | Alt+Shift+Ctrl+Win+y,u,i.o               |
-
 ## インストール方法
 
 ```
