@@ -17,11 +17,15 @@
 | HENKAN + m         | Delete                   |
 | HENKAN + u         | App (Compose)            |
 | HENKAN + 1,2,...,0 | F1,F2,...,F10            |
-| HENKAN + a         | MUHENKAN                 |
-| HENKAN + s         | HENKAN                   |
-| HENKAN + d         | MUHENKAN                 |
-| HENKAN + f         | HENKAN                   |
-| HENKAN             | HENKAN                   |
+| HENKAN + w         | Win+2                    |
+| HENKAN + e         | Win+4                    |
+| HENKAN + r         | Win+6                    |
+| HENKAN + t         | Win+8                    |
+| HENKAN + a         | Win+1                    |
+| HENKAN + s         | Win+3                    |
+| HENKAN + d         | Win+5                    |
+| HENKAN + f         | Win+7                    |
+| HENKAN + g         | Win+9                    |
 
 HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
 
@@ -35,7 +39,7 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 MUHENKAN のみの場合は，MUHENKAN を入力される
 MUHENKAN と他のキーの同時押しの場合は，LALT + ???? が入力される
 
-- -e|--enable-ctrl-map オプション
+- -e|--ctrl-map オプション
 
 | KEY      | MAP       |
 |----------|-----------|

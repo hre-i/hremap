@@ -48,6 +48,7 @@ private:
     struct HenkanKey {
         int code;               // 同時に押すコード
         int mapped;             // 変換後コード
+        int mod;                // 変換後 Modifier
         bool pressed;           // 押下状態
     };
     HenkanKey* find_henkan_keys(int code);

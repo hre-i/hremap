@@ -54,34 +54,54 @@ const char* HreMapConverter::m_metaKeyNames[] = {
 #define metaKeysNum (int(sizeof(m_metaKeys)/sizeof(m_metaKeys[0])))
 
 HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
-    { KEY_A,     KEY_MUHENKAN,  false },
-    { KEY_S,     KEY_HENKAN,    false },
-    { KEY_D,     KEY_MUHENKAN,  false },
-    { KEY_F,     KEY_HENKAN,    false },
-    { KEY_SPACE, KEY_ESC,       false },
-    { KEY_H,     KEY_LEFT,      false },
-    { KEY_J,     KEY_DOWN,      false },
-    { KEY_K,     KEY_UP,        false },
-    { KEY_L,     KEY_RIGHT,     false },
-    { KEY_COMMA, KEY_HOME,      false },
-    { KEY_DOT,   KEY_END,       false },
-    { KEY_O,     KEY_PAGEDOWN,  false },
-    { KEY_I,     KEY_PAGEUP,    false },
-    { KEY_M,     KEY_DELETE,    false },
-    { KEY_U,     KEY_COMPOSE,   false },
-    { KEY_1,     KEY_F1,        false },
-    { KEY_2,     KEY_F2,        false },
-    { KEY_3,     KEY_F3,        false },
-    { KEY_4,     KEY_F4,        false },
-    { KEY_5,     KEY_F5,        false },
-    { KEY_6,     KEY_F6,        false },
-    { KEY_7,     KEY_F7,        false },
-    { KEY_8,     KEY_F8,        false },
-    { KEY_9,     KEY_F9,        false },
-    { KEY_0,     KEY_F10,       false },
-    { KEY_MINUS, KEY_F11,       false },
-    { KEY_EQUAL, KEY_F12,       false },
-    { -1, 0, 0 }
+
+#define NO_CHG (-1)
+
+    { KEY_1,     KEY_F1,        NO_CHG,        false },
+    { KEY_2,     KEY_F2,        NO_CHG,        false },
+    { KEY_3,     KEY_F3,        NO_CHG,        false },
+    { KEY_4,     KEY_F4,        NO_CHG,        false },
+    { KEY_5,     KEY_F5,        NO_CHG,        false },
+    { KEY_6,     KEY_F6,        NO_CHG,        false },
+    { KEY_7,     KEY_F7,        NO_CHG,        false },
+    { KEY_8,     KEY_F8,        NO_CHG,        false },
+    { KEY_9,     KEY_F9,        NO_CHG,        false },
+    { KEY_0,     KEY_F10,       NO_CHG,        false },
+    { KEY_MINUS, KEY_F11,       NO_CHG,        false },
+    { KEY_EQUAL, KEY_F12,       NO_CHG,        false },
+
+//  { KEY_Q,                                         },
+    { KEY_W,     KEY_2,         BIT_RIGHTMETA, false },
+    { KEY_E,     KEY_4,         BIT_RIGHTMETA, false },
+    { KEY_R,     KEY_6,         BIT_RIGHTMETA, false },
+    { KEY_T,     KEY_8,         BIT_RIGHTMETA, false },
+    { KEY_Y,     KEY_2,         BIT_RIGHTMETA, false },
+    { KEY_U,     KEY_COMPOSE,   NO_CHG,        false },
+    { KEY_I,     KEY_PAGEUP,    NO_CHG,        false },
+    { KEY_O,     KEY_PAGEDOWN,  NO_CHG,        false },
+//  { KEY_P,                                         },
+
+    { KEY_A,     KEY_1,         BIT_RIGHTMETA, false },
+    { KEY_S,     KEY_3,         BIT_RIGHTMETA, false },
+    { KEY_D,     KEY_5,         BIT_RIGHTMETA, false },
+    { KEY_F,     KEY_7,         BIT_RIGHTMETA, false },
+    { KEY_G,     KEY_9,         BIT_RIGHTMETA, false },
+    { KEY_H,     KEY_LEFT,      NO_CHG,        false },
+    { KEY_J,     KEY_DOWN,      NO_CHG,        false },
+    { KEY_K,     KEY_UP,        NO_CHG,        false },
+    { KEY_L,     KEY_RIGHT,     NO_CHG,        false },
+
+//  { KEY_Z,                                         },
+//  { KEY_X,                                         },
+//  { KEY_C,                                         },
+//  { KEY_V,                                         },
+//  { KEY_B,                                         },
+    { KEY_N,     KEY_INSERT,    NO_CHG,        false },
+    { KEY_M,     KEY_DELETE,    NO_CHG,        false },
+    { KEY_COMMA, KEY_HOME,      NO_CHG,        false },
+    { KEY_DOT,   KEY_END,       NO_CHG,        false },
+    { KEY_SPACE, KEY_ESC,       NO_CHG,        false },
+    { -1, 0, -1, 0 }
 };
 
 HreMapConverter::HreMapConverter()
@@ -290,7 +310,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                     // Henkan がリリースされたら，同時押しの press 状態を解除する
                     for (HenkanKey* p = m_henkan_keys; p->code >= 0; ++p) {
                         if (p->pressed) {
-                            releaseKey(p->mapped, -1);
+                            releaseKey(p->mapped, p->mod);
                             p->pressed = false;
                         }
                     }
@@ -309,12 +329,12 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 if (p->code == input->code) {
                     if (input->value == 0) {
                         DP(("HENKAN PRESS OFF:(%d -> %d)\n", p->code, p->mapped));
-                        releaseKey(p->mapped, -1);
+                        releaseKey(p->mapped, p->mod);
                         p->pressed = false;
                         return true;
                     } else if (input->value > 0) {
                         DP(("HENKAN PRESS ON:(%d -> %d)\n", p->code, p->mapped));
-                        pressKey(p->mapped, -1);
+                        pressKey(p->mapped, p->mod);
                         p->pressed = true;
                         return true;
                     }
