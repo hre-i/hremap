@@ -236,7 +236,7 @@ void HreMapConverter::releaseKey(__u16 code, int metaKeys)
     if (metaKeys >= 0) {
         int tmpRelease = m_metaKeyFlags & ~metaKeys;
         int tmpPress = ~m_metaKeyFlags & metaKeys;
-        setMetaKeys(tmpRelease, tmpPress);
+        setMetaKeys(tmpPress, tmpRelease);
     }
 }
 
