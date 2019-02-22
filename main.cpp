@@ -25,6 +25,7 @@ static void usage()
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
     fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
     fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
+    fprintf(stderr, "  --henkan-only-to-henkan: map henkan-only to henkan key\n");
     fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
     fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
     fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
@@ -44,6 +45,7 @@ bool g_jp_to_us = false;
 bool g_hhk_jp_to_us = false;
 bool g_muhenkan_to_kana = false;
 bool g_muhenkan_to_esc = false;
+bool g_henkan_only_to_henkan = false;
 bool g_ralt_to_kana = false;
 
 #define DP(x) if (g_debug) printf x
@@ -76,6 +78,9 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--henkan-map") == 0) {
                 g_enable_henkan_map = true;
+            }
+            else if (strcmp(argv[i], "--henkan-only-to-henkan") == 0) {
+                g_henkan_only_to_henkan = true;
             }
             else if (strcmp(argv[i], "--muhenkan-map") == 0) {
                 g_enable_muhenkan_map = true;

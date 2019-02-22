@@ -29,6 +29,10 @@
 
 HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
 
+- --henkan-only-to-henkan
+
+--henkan-map と同時に指定した場合，変換キーのみ押してすぐに話した場合は，変換キーを入力する。
+
 - --muhenkan-map
 
 | KEY                | MAP                      |

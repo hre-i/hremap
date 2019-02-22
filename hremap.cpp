@@ -13,6 +13,7 @@ extern bool g_enable_function_map;
 extern bool g_enable_henkan_map;
 extern bool g_enable_muhenkan_map;
 extern bool g_enable_katakana_map;
+extern bool g_henkan_only_to_henkan;
 
 #define BIT_LEFTCTRL   (1 << 0)
 #define BIT_RIGHTCTRL  (1 << 1)
@@ -319,7 +320,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 m_henkan_state = false;
             } else {
                 m_henkan_state = true;
-                m_henkan_only = true;
+                m_henkan_only = g_henkan_only_to_henkan;
             }
             return true;
         }
