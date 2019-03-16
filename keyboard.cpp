@@ -19,6 +19,8 @@
 #include <string.h>
 #include "keyboard.h"
 
+extern bool g_f11_to_henkan;
+extern bool g_f12_to_katakana;
 extern bool g_enable_katakana_map;
 extern bool g_muhenkan_to_kana;
 extern bool g_muhenkan_to_esc;
@@ -174,6 +176,14 @@ bool KeyboardDevice::getKey(struct input_event* key)
     }
 
     if (g_ralt_to_kana && key->code == KEY_RIGHTALT) {
+	key->code = KEY_KATAKANA;
+    }
+
+    if (g_f11_to_henkan && key->code == KEY_F11) {
+	key->code = KEY_HENKAN;
+    }
+
+    if (g_f12_to_katakana && key->code == KEY_F12) {
 	key->code = KEY_KATAKANA;
     }
 

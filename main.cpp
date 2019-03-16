@@ -24,6 +24,8 @@ static void usage()
 {
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
     fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
+    fprintf(stderr, "  --f11-to-henkan:\n");
+    fprintf(stderr, "  --f12-to-katakana:\n");
     fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
     fprintf(stderr, "  --henkan-only-to-henkan: map henkan-only to henkan key\n");
     fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
@@ -47,6 +49,8 @@ bool g_muhenkan_to_kana = false;
 bool g_muhenkan_to_esc = false;
 bool g_henkan_only_to_henkan = false;
 bool g_ralt_to_kana = false;
+bool g_f11_to_henkan = false;
+bool g_f12_to_katakana = false;
 
 #define DP(x) if (g_debug) printf x
 
@@ -99,6 +103,12 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--ralt-to-kana") == 0) {
                 g_ralt_to_kana = true;
+            }
+            else if (strcmp(argv[i], "--f11-to-henkan") == 0) {
+                g_f11_to_henkan = true;
+            }
+            else if (strcmp(argv[i], "--f12-to-katakana") == 0) {
+                g_f12_to_katakana = true;
             }
             else if (strcmp(argv[i], "-n") == 0
                 || strcmp(argv[i], "--no-grab") == 0) {
