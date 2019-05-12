@@ -24,8 +24,20 @@ depend:
 install:
 	install -m 755 -s $(TARGET) /usr/local/bin/
 
+install-scripts:
+	cp hremap.sh /usr/local/etc/hremap.sh
+	chmod 755 /usr/local/etc/hremap.sh
+	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
+	cp hremap.service /usr/lib/systemd/system/hremap.service
+
 setup:
-	(cd systemd && sudo ./setup.sh)
+	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
+	[ -f /usr/lib/systemd/system/hremap.service ] || cp systemd/hremap.service /usr/lib/systemd/system/hremap.service
+	systemctl enable hremap
+	systemctl start hremap
+
+#setup:
+#	(cd systemd && sudo ./setup.sh)
 
 .PHONY: all clean install tarball depend test stop
 
