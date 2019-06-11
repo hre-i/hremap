@@ -40,7 +40,7 @@ case x"$DEV" in
 esac
 
 if [ ! -z "$DEV" ]; then
-    case x"`pidof x11hremap`" in
+    case x"`pidof hremap`" in
         x[0-9]*) sudo killall hremap ;;
         *) ;;
     esac

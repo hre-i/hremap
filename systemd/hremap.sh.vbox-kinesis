@@ -1,19 +1,12 @@
 #!/bin/sh
 
 ### Keyboard devices
-DEV=
-for d in \
-    /dev/input/event3
-do
-    if [ -c "$d" -a -z "$DEV" ]; then
-	DEV="$d"
-    fi
-done
+DEV=/dev/input/by-path/platform-i8042-serio-0-event-kbd
 
 opt="--ctrl-map --f11-to-henkan --f12-to-katakana --katakana-map --henkan-map"
 
 if [ ! -z "$DEV" ]; then
-    case x"`pidof x11hremap`" in
+    case x"`pidof hremap`" in
         x[0-9]*) sudo killall hremap ;;
         *) ;;
     esac
