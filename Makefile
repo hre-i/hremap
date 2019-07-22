@@ -25,10 +25,10 @@ install:
 	install -m 755 -s $(TARGET) /usr/local/bin/
 
 install-scripts:
-	cp hremap.sh /usr/local/etc/hremap.sh
+	cp systemd/hremap.sh /usr/local/etc/hremap.sh
 	chmod 755 /usr/local/etc/hremap.sh
 	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
-	cp hremap.service /usr/lib/systemd/system/hremap.service
+	cp systemd/hremap.service /usr/lib/systemd/system/hremap.service
 
 setup:
 	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
