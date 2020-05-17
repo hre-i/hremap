@@ -136,12 +136,12 @@ bool KeyboardDevice::getKey(struct input_event* key)
                             key->time.tv_sec, key->time.tv_usec));
             break;
         case KEY_LEFTCTRL:
-//            if (g_enable_katakana_map) {
-//                key->code = KEY_KATAKANA;
-//                DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
-//                                time(NULL), key->type, key->code, key->value, (int)len,
-//                                key->time.tv_sec, key->time.tv_usec));
-//            }
+            if (g_enable_katakana_map) {
+                key->code = KEY_KATAKANA;
+                DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
+                                time(NULL), key->type, key->code, key->value, (int)len,
+                                key->time.tv_sec, key->time.tv_usec));
+            }
             break;
         }
     }
