@@ -7,6 +7,8 @@ for d in \
     /dev/input/by-id/usb-ErgoDox_EZ_ErgoDox_EZ_0-if03-event-kbd \
     /dev/input/by-id/usb-ErgoDox_EZ_ErgoDox_EZ-event-kbd \
     /dev/input/by-id/usb-PFU_Limited_HHKB_Professional_JP-event-kbd \
+    /dev/input/by-id/usb-PFU_Limited_HHKB_Professional_JP-event-kbd \
+    /dev/input/by-id/usb-PFU_Limited_HHKB-Hybrid-event-kbd \
     /dev/input/by-id/usb-Topre_Corporation_RealForce_Compact-event-kbd \
     /dev/input/by-path/platform-i8042-serio-0-event-kbd \
     /dev/input/by-id/usb-Microsoft_Surface_Type_Cover-event-kbd \
