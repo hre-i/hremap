@@ -22,22 +22,15 @@ depend:
 	g++ $(CXXFLAGS) -MM $(SOURCES) > $(DEPFILE)
 
 install:
-	install -m 755 -s $(TARGET) /usr/local/bin/
-
-install-scripts:
-	cp systemd/hremap.sh /usr/local/etc/hremap.sh
-	chmod 755 /usr/local/etc/hremap.sh
-	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
-	cp systemd/hremap.service /usr/lib/systemd/system/hremap.service
+	sudo install -m 755 -s $(TARGET) /usr/local/bin/
+	[ -f /usr/local/etc/hremap.sh ] || sudo cp systemd/hremap.sh /usr/local/etc/hremap.sh
+	sudo chmod 755 /usr/local/etc/hremap.sh
+	[ -d /usr/lib/systemd/system ] || sudo mkdir /usr/lib/systemd/system
+	[ -f /usr/lib/systemd/system/hremap.service ] || sudo cp systemd/hremap.service /usr/lib/systemd/system/hremap.service
 
 setup:
-	[ -d /usr/lib/systemd/system ] || mkdir /usr/lib/systemd/system
-	[ -f /usr/lib/systemd/system/hremap.service ] || cp systemd/hremap.service /usr/lib/systemd/system/hremap.service
 	systemctl enable hremap
 	systemctl start hremap
-
-#setup:
-#	(cd systemd && sudo ./setup.sh)
 
 .PHONY: all clean install tarball depend test stop
 
