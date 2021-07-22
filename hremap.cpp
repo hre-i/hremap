@@ -71,7 +71,7 @@ HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
     { KEY_MINUS, KEY_F11,       NO_CHG,        false },
     { KEY_EQUAL, KEY_F12,       NO_CHG,        false },
 
-    { KEY_Q,     KEY_Q,         BIT_RIGHTMETA, false },
+//  { KEY_Q,     KEY_Q,         BIT_RIGHTMETA, false },
     { KEY_W,     KEY_2,         BIT_RIGHTMETA, false },
     { KEY_E,     KEY_4,         BIT_RIGHTMETA, false },
     { KEY_R,     KEY_5,         BIT_RIGHTMETA, false },
