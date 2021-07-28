@@ -42,12 +42,14 @@ bool g_enable_ctrl_map = false;
 bool g_enable_henkan_map = false;
 bool g_enable_muhenkan_map = false;
 bool g_enable_katakana_map = false;
+bool g_enable_skk_map = false;
 bool g_lalt_to_esc = false;
 bool g_jp_to_us = false;
 bool g_hhk_jp_to_us = false;
 bool g_muhenkan_to_kana = false;
 bool g_muhenkan_to_esc = false;
 bool g_henkan_only_to_henkan = false;
+bool g_muhen_only_to_muhen = false;
 bool g_ralt_to_kana = false;
 bool g_f11_to_henkan = false;
 bool g_f12_to_katakana = false;
@@ -85,6 +87,9 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--henkan-only-to-henkan") == 0) {
                 g_henkan_only_to_henkan = true;
+            }
+            else if (strcmp(argv[i], "--muhenkan-only-to-muhenkan") == 0) {
+                g_muhen_only_to_muhen = true;
             }
             else if (strcmp(argv[i], "--muhenkan-map") == 0) {
                 g_enable_muhenkan_map = true;

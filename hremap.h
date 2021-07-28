@@ -52,13 +52,15 @@ private:
         bool pressed;           // 押下状態
     };
     HenkanKey* find_henkan_keys(int code);
+    HenkanKey* find_muhen_keys(int code);
 
     int m_metaKeyFlags;
     bool m_henkan_state;
     bool m_henkan_only;
-    bool m_muhenkan_state;
-    bool m_muhenkan_only;
+    bool m_muhen_state;
+    bool m_muhen_only;
     static HenkanKey m_henkan_keys[];
+    static HenkanKey m_muhen_keys[];
 };
 
 #define LOCAL_EV_SLEEP  (192)

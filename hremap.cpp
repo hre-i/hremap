@@ -14,6 +14,7 @@ extern bool g_enable_henkan_map;
 extern bool g_enable_muhenkan_map;
 extern bool g_enable_katakana_map;
 extern bool g_henkan_only_to_henkan;
+extern bool g_muhen_only_to_muhen;
 
 #define BIT_LEFTCTRL   (1 << 0)
 #define BIT_RIGHTCTRL  (1 << 1)
@@ -105,6 +106,58 @@ HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
     { -1, 0, -1, 0 }
 };
 
+HreMapConverter::HenkanKey HreMapConverter::m_muhen_keys[] = {
+
+#define NO_CHG (-1)
+
+    { KEY_1,     KEY_F1,        NO_CHG,        false },
+    { KEY_2,     KEY_F2,        NO_CHG,        false },
+    { KEY_3,     KEY_F3,        NO_CHG,        false },
+    { KEY_4,     KEY_F4,        NO_CHG,        false },
+    { KEY_5,     KEY_F5,        NO_CHG,        false },
+    { KEY_6,     KEY_F6,        NO_CHG,        false },
+    { KEY_7,     KEY_F7,        NO_CHG,        false },
+    { KEY_8,     KEY_F8,        NO_CHG,        false },
+    { KEY_9,     KEY_F9,        NO_CHG,        false },
+    { KEY_0,     KEY_F10,       NO_CHG,        false },
+    { KEY_MINUS, KEY_F11,       NO_CHG,        false },
+    { KEY_EQUAL, KEY_F12,       NO_CHG,        false },
+
+//  { KEY_Q,     KEY_Q,         BIT_RIGHTMETA, false },
+//  { KEY_W,     KEY_2,         BIT_RIGHTMETA, false },
+//  { KEY_E,     KEY_4,         BIT_RIGHTMETA, false },
+//  { KEY_R,     KEY_5,         BIT_RIGHTMETA, false },
+//  { KEY_T,     KEY_6,         BIT_RIGHTMETA, false },
+//  { KEY_Y,     KEY_Y,         BIT_RIGHTMETA, false },
+//  { KEY_U,     KEY_COMPOSE,   NO_CHG,        false },
+//  { KEY_I,     KEY_PAGEUP,    NO_CHG,        false },
+//  { KEY_O,     KEY_PAGEDOWN,  NO_CHG,        false },
+//  { KEY_P,                                         },
+    { KEY_LEFTBRACE, KEY_ESC, NO_CHG,        false },
+
+//  { KEY_A,     KEY_1,         BIT_RIGHTMETA, false },
+//  { KEY_S,     KEY_3,         BIT_RIGHTMETA, false },
+//  { KEY_D,     KEY_7,         BIT_RIGHTMETA, false },
+//  { KEY_F,     KEY_8,         BIT_RIGHTMETA, false },
+//  { KEY_G,     KEY_9,         BIT_RIGHTMETA, false },
+//  { KEY_H,     KEY_LEFT,      NO_CHG,        false },
+    { KEY_J,     KEY_HENKAN,    NO_CHG,        false },
+    { KEY_K,     KEY_KATAKANA,  NO_CHG,        false },
+    { KEY_L,     KEY_MUHENKAN,  NO_CHG,        false },
+
+//  { KEY_Z,                                         },
+//  { KEY_X,                                         },
+//  { KEY_C,                                         },
+//  { KEY_V,                                         },
+//  { KEY_B,                                         },
+//  { KEY_N,     KEY_INSERT,    NO_CHG,        false },
+//  { KEY_M,     KEY_DELETE,    NO_CHG,        false },
+//  { KEY_COMMA, KEY_HOME,      NO_CHG,        false },
+//  { KEY_DOT,   KEY_END,       NO_CHG,        false },
+//  { KEY_SPACE, KEY_ESC,       NO_CHG,        false },
+    { -1, 0, -1, 0 }
+};
+
 HreMapConverter::HreMapConverter()
 {
     memset(&syn, 0, sizeof(syn));
@@ -124,6 +177,15 @@ HreMapConverter::~HreMapConverter()
 HreMapConverter::HenkanKey* HreMapConverter::find_henkan_keys(int code)
 {
     for (HreMapConverter::HenkanKey* p = m_henkan_keys; p->code != 0; ++p) {
+        if (p->code == code)
+            return p;
+    }
+    return NULL;
+}
+
+HreMapConverter::HenkanKey* HreMapConverter::find_muhen_keys(int code)
+{
+    for (HreMapConverter::HenkanKey* p = m_muhen_keys; p->code != 0; ++p) {
         if (p->code == code)
             return p;
     }
@@ -347,25 +409,42 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
     if (g_enable_muhenkan_map) {
         if (input->code == KEY_MUHENKAN) {
             if (input->value == 0) {
-                if (m_muhenkan_only) {
-                    DP(("MUHENKAN TYPE\n"));
+                if (m_muhen_only) {
                     typeKey(KEY_MUHENKAN, -1);
                 } else {
-                    DP(("MUHENKAN_TO_LALT RELEASE\n"));
-                    releaseKey(KEY_LEFTALT, -1);
+                    // Henkan がリリースされたら，同時押しの press 状態を解除する
+                    for (HenkanKey* p = m_muhen_keys; p->code >= 0; ++p) {
+                        if (p->pressed) {
+                            releaseKey(p->mapped, p->mod);
+                            p->pressed = false;
+                        }
+                    }
+                    // TODO: 同時押しされている(本来の)キーをプレス状態にする必要があるか？
                 }
-                m_muhenkan_state = false;
+                m_muhen_state = false;
             } else {
-                DP(("MUHENKAN ON\n"));
-                m_muhenkan_state = true;
-                m_muhenkan_only = true;
+                m_muhen_state = true;
+                m_muhen_only = g_muhen_only_to_muhen;
             }
             return true;
         }
-        if (m_muhenkan_state && m_muhenkan_only) {
-            DP(("MUHENKAN_TO_LALT PRESS"));
-            m_muhenkan_only = false;
-            pressKey(KEY_LEFTALT, -1);
+        if (m_muhen_state) {
+            m_muhen_only = false;
+            for (HenkanKey* p = m_muhen_keys; p->code >= 0; ++p) {
+                if (p->code == input->code) {
+                    if (input->value == 0) {
+                        DP(("MUHEN PRESS OFF:(%d -> %d)\n", p->code, p->mapped));
+                        releaseKey(p->mapped, p->mod);
+                        p->pressed = false;
+                        return true;
+                    } else if (input->value > 0) {
+                        DP(("MUHEN PRESS ON:(%d -> %d)\n", p->code, p->mapped));
+                        pressKey(p->mapped, p->mod);
+                        p->pressed = true;
+                        return true;
+                    }
+                }
+            }
         }
     }
 
