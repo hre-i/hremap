@@ -14,7 +14,7 @@ extern bool g_enable_henkan_map;
 extern bool g_enable_muhenkan_map;
 extern bool g_enable_katakana_map;
 extern bool g_henkan_only_to_henkan;
-extern bool g_muhen_only_to_muhen;
+extern bool g_muhen_only_to_esc;
 
 #define BIT_LEFTCTRL   (1 << 0)
 #define BIT_RIGHTCTRL  (1 << 1)
@@ -140,10 +140,13 @@ HreMapConverter::HenkanKey HreMapConverter::m_muhen_keys[] = {
 //  { KEY_D,     KEY_7,         BIT_RIGHTMETA, false },
 //  { KEY_F,     KEY_8,         BIT_RIGHTMETA, false },
 //  { KEY_G,     KEY_9,         BIT_RIGHTMETA, false },
-//  { KEY_H,     KEY_LEFT,      NO_CHG,        false },
+    { KEY_H,     KEY_BACKSPACE, NO_CHG,        false },
     { KEY_J,     KEY_HENKAN,    NO_CHG,        false },
     { KEY_K,     KEY_KATAKANA,  NO_CHG,        false },
     { KEY_L,     KEY_MUHENKAN,  NO_CHG,        false },
+//  { KEY_SEMICOLON,  KEY_ZENKAKUHANKAKU,  NO_CHG,        false },
+    { KEY_APOSTROPHE, KEY_F4,  BIT_RIGHTSHIFT|BIT_LEFTCTRL, false },
+    { KEY_BACKSLASH,  KEY_F5,  BIT_RIGHTSHIFT|BIT_LEFTCTRL, false },
 
 //  { KEY_Z,                                         },
 //  { KEY_X,                                         },
@@ -410,7 +413,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         if (input->code == KEY_MUHENKAN) {
             if (input->value == 0) {
                 if (m_muhen_only) {
-                    typeKey(KEY_MUHENKAN, -1);
+                    typeKey(KEY_ESC, -1);
                 } else {
                     // Henkan がリリースされたら，同時押しの press 状態を解除する
                     for (HenkanKey* p = m_muhen_keys; p->code >= 0; ++p) {
@@ -424,7 +427,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 m_muhen_state = false;
             } else {
                 m_muhen_state = true;
-                m_muhen_only = g_muhen_only_to_muhen;
+                m_muhen_only = g_muhen_only_to_esc;
             }
             return true;
         }
