@@ -413,6 +413,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         if (input->code == KEY_MUHENKAN) {
             if (input->value == 0) {
                 if (m_muhen_only) {
+                    typeKey(KEY_MUHENKAN, -1);
                     typeKey(KEY_ESC, -1);
                 } else {
                     // Henkan がリリースされたら，同時押しの press 状態を解除する
