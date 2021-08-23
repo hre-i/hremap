@@ -149,7 +149,7 @@ bool KeyboardDevice::getKey(struct input_event* key)
     if (g_hhk_jp_to_us) {
         switch (key->code) {
         case KEY_GRAVE:
-            key->code = KEY_KATAKANA;
+            key->code = KEY_ESC;
             DP(("-> %ld\tin : type %d, code %3d, value %d (%d) @%ld.%ld\n",
                             time(NULL), key->type, key->code, key->value, (int)len,
                             key->time.tv_sec, key->time.tv_usec));

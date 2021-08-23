@@ -55,6 +55,7 @@ private:
     HenkanKey* find_muhen_keys(int code);
 
     int m_metaKeyFlags;
+    bool m_ctrl_only;
     bool m_henkan_state;
     bool m_henkan_only;
     bool m_muhen_state;

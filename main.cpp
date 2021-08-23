@@ -24,15 +24,14 @@ static void usage()
 {
     fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
     fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
-    fprintf(stderr, "  --f11-to-henkan:\n");
-    fprintf(stderr, "  --f12-to-katakana:\n");
+    fprintf(stderr, "  --lctrl-only-to-esc: map left control only to esc\n");
     fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
     fprintf(stderr, "  --henkan-only-to-henkan: map henkan-only to henkan key\n");
     fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
     fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
     fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
-    fprintf(stderr, "  --lalt-to-esc: enable mapping left-alt to esc\n");
-    fprintf(stderr, "  --ralt-to-kana: enable mapping left-alt to esc\n");
+    fprintf(stderr, "  --f11-to-henkan:\n");
+    fprintf(stderr, "  --f12-to-katakana:\n");
     fprintf(stderr, "  --no-grab: do not grab device input (for debug)\n");
     fprintf(stderr, "  --debug: enable debug mode\n");
 }
@@ -49,7 +48,9 @@ bool g_hhk_jp_to_us = false;
 bool g_muhenkan_to_kana = false;
 bool g_muhenkan_to_esc = false;
 bool g_henkan_only_to_henkan = false;
+bool g_muhen_only_to_muhen = false;
 bool g_muhen_only_to_esc = false;
+bool g_lctrl_only_to_esc = false;
 bool g_ralt_to_kana = false;
 bool g_f11_to_henkan = false;
 bool g_f12_to_katakana = false;
@@ -85,8 +86,14 @@ int main(int argc, char* argv[])
             else if (strcmp(argv[i], "--henkan-map") == 0) {
                 g_enable_henkan_map = true;
             }
+            else if (strcmp(argv[i], "--lctrl-only-to-esc") == 0) {
+                g_lctrl_only_to_esc = true;
+            }
             else if (strcmp(argv[i], "--henkan-only-to-henkan") == 0) {
                 g_henkan_only_to_henkan = true;
+            }
+            else if (strcmp(argv[i], "--muhenkan-only-to-muhenkan") == 0) {
+                g_muhen_only_to_muhen = true;
             }
             else if (strcmp(argv[i], "--muhenkan-only-to-esc") == 0) {
                 g_muhen_only_to_esc = true;
@@ -96,9 +103,6 @@ int main(int argc, char* argv[])
             }
             else if (strcmp(argv[i], "--katakana-map") == 0) {
                 g_enable_katakana_map = true;
-            }
-            else if (strcmp(argv[i], "--lalt-to-esc") == 0) {
-                g_lalt_to_esc = true;
             }
             else if (strcmp(argv[i], "--muhenkan-to-kana") == 0) {
                 g_muhenkan_to_kana = true;

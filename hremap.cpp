@@ -14,6 +14,7 @@ extern bool g_enable_henkan_map;
 extern bool g_enable_muhenkan_map;
 extern bool g_enable_katakana_map;
 extern bool g_henkan_only_to_henkan;
+extern bool g_muhen_only_to_muhen;
 extern bool g_muhen_only_to_esc;
 
 #define BIT_LEFTCTRL   (1 << 0)
@@ -413,8 +414,12 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
         if (input->code == KEY_MUHENKAN) {
             if (input->value == 0) {
                 if (m_muhen_only) {
-                    typeKey(KEY_MUHENKAN, -1);
-                    typeKey(KEY_ESC, -1);
+                    if (g_muhen_only_to_muhen) {
+                        typeKey(KEY_MUHENKAN, -1);
+                    }
+                    if (g_muhen_only_to_esc) {
+                        typeKey(KEY_ESC, -1);
+                    }
                 } else {
                     // Henkan がリリースされたら，同時押しの press 状態を解除する
                     for (HenkanKey* p = m_muhen_keys; p->code >= 0; ++p) {
