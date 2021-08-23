@@ -145,7 +145,7 @@ HreMapConverter::HenkanKey HreMapConverter::m_muhen_keys[] = {
     { KEY_J,     KEY_HENKAN,    NO_CHG,        false },
     { KEY_K,     KEY_KATAKANA,  NO_CHG,        false },
     { KEY_L,     KEY_MUHENKAN,  NO_CHG,        false },
-//  { KEY_SEMICOLON,  KEY_ZENKAKUHANKAKU,  NO_CHG,        false },
+    { KEY_SEMICOLON,  KEY_ZENKAKUHANKAKU,  NO_CHG,        false },
     { KEY_APOSTROPHE, KEY_F4,  BIT_RIGHTSHIFT|BIT_LEFTCTRL, false },
     { KEY_BACKSLASH,  KEY_F5,  BIT_RIGHTSHIFT|BIT_LEFTCTRL, false },
 
@@ -433,7 +433,7 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
                 m_muhen_state = false;
             } else {
                 m_muhen_state = true;
-                m_muhen_only = g_muhen_only_to_esc;
+                m_muhen_only = g_muhen_only_to_muhen || g_muhen_only_to_esc;
             }
             return true;
         }
