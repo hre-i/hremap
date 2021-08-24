@@ -26,7 +26,7 @@ case x"$DEV" in
     opt="$opt"
     ;;
 *HHKB*)
-    opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-only-to-esc --hhk-jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --henkan-only-to-henkan --muhenkan-only-to-muhenkan --hhk-jp-to-us $opt"
     ;;
 *RealForce*)
     opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-only-to-esc --jp-to-us $opt"
