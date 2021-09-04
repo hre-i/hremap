@@ -461,6 +461,23 @@ bool HreMapConverter::handleKeyInput(struct input_event* input)
     }
 
     switch (input->code) {
+    case KEY_LEFTBRACE:
+        switch (input->value) {
+        case 0:
+            break;
+        case 2: // AUTOREPEAT
+        case 1: // PRESS
+            if (g_enable_ctrl_map &&
+                    IS_CTRL_ON() && !IS_ALT_ON() && !IS_SHIFT_ON()) {
+                DP(("C-[ -> TYPE ESC\n"));
+                typeKey(KEY_ESC, 0);
+                return true;
+            }
+            break;
+        default:
+            DP(("%ld\tIGNORE input->value:%d", time(NULL), input->value));
+        }
+        break;
     case KEY_H:
         switch (input->value) {
         case 0:
