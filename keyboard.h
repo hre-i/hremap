@@ -11,37 +11,32 @@
 #ifndef _DEFINE_H_X11KEYMACS_KEYBOARD_
 #define _DEFINE_H_X11KEYMACS_KEYBOARD_
 
-#include <string>
 #include <linux/input.h>
+#include <string>
 
 #define USERDEV_FILENAME "/dev/uinput"
 
 /*!
  * Keyboard device input/output
  */
-class KeyboardDevice
-{
+class KeyboardDevice {
 public:
-    KeyboardDevice(const char* filename, bool grab = true);
-    ~KeyboardDevice();
+  KeyboardDevice(const char *filename, bool grab = true);
+  ~KeyboardDevice();
 
-    bool isKeyDevValid() const {
-        return m_keyfd >= 0;
-    }
-    bool isUserDevValid() const {
-        return m_userfd >= 0;
-    }
+  bool isKeyDevValid() const { return m_keyfd >= 0; }
+  bool isUserDevValid() const { return m_userfd >= 0; }
 
-    bool getKey(struct input_event* key);
-    bool putKey(struct input_event* key);
+  bool getKey(struct input_event *key);
+  bool putKey(struct input_event *key);
 
 private:
-    void releaseAllKeys(int fd);
+  void releaseAllKeys(int fd);
 
-    bool m_grab;
-    int m_keyfd;
-    int m_userfd;
-    int m_metakeys;
+  bool m_grab;
+  int m_keyfd;
+  int m_userfd;
+  int m_metakeys;
 };
 
 #endif /* _DEFINE_H_X11KEYMACS_KEYBOARD_ */

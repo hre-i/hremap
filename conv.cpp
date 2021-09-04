@@ -5,27 +5,21 @@
  * conv.cpp: keyboard input converter (abstract)
  */
 
-#include <unistd.h>
 #include "conv.h"
+#include <unistd.h>
 
-Converter::Converter()
-{
+Converter::Converter() {}
+
+Converter::~Converter() {}
+
+bool Converter::getOutput(struct input_event *output) {
+  if (m_output.empty())
+    return false;
+  *output = m_output.front();
+  m_output.pop();
+  return true;
 }
 
-Converter::~Converter()
-{
-}
-
-bool Converter::getOutput(struct input_event* output)
-{
-    if (m_output.empty())
-        return false;
-    *output = m_output.front();
-    m_output.pop();
-    return true;
-}
-
-void Converter::addOutput(struct input_event* output)
-{
-    m_output.push(*output);
+void Converter::addOutput(struct input_event *output) {
+  m_output.push(*output);
 }

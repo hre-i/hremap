@@ -11,27 +11,21 @@
 #include <linux/input.h>
 #include <queue>
 
-class Converter
-{
+class Converter {
 public:
-    Converter();
-    virtual ~Converter();
+  Converter();
+  virtual ~Converter();
 
-    bool addInput(struct input_event* input) {
-        return handleInput(input);
-    }
-    bool hasOutput() const {
-        return !m_output.empty();
-    }
-    bool getOutput(struct input_event* output);
+  bool addInput(struct input_event *input) { return handleInput(input); }
+  bool hasOutput() const { return !m_output.empty(); }
+  bool getOutput(struct input_event *output);
 
 protected:
-    virtual bool handleInput(struct input_event* input) = 0;
-    void addOutput(struct input_event* output);
+  virtual bool handleInput(struct input_event *input) = 0;
+  void addOutput(struct input_event *output);
 
 private:
-    std::queue<struct input_event> m_output;
+  std::queue<struct input_event> m_output;
 };
 
 #endif /* _DEFINE_H_X11KEYMACS_CONV_ */
-
