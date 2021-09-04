@@ -2,3 +2,6 @@
 *~
 hremap
 tags
+compile
+compile_commands.json
+.clangd/

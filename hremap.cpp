@@ -56,6 +56,9 @@ const char* HreMapConverter::m_metaKeyNames[] = {
 
 #define metaKeysNum (int(sizeof(m_metaKeys)/sizeof(m_metaKeys[0])))
 
+/**
+ * 「変換」マップ
+ */
 HreMapConverter::HenkanKey HreMapConverter::m_henkan_keys[] = {
 
 #define NO_CHG (-1)

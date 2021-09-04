@@ -6,11 +6,36 @@
 
 ## キーマップ
 
-- --henkan-map
+1. SIMPLE キーマップ変換
+2. COMPLEX キーマップ変換
+
+### SIMPLE キーマップ変換
+
+#### --jp-to-us
+
+| KEY              | MAP                 | 備考                     |
+|------------------|---------------------|--------------------------|
+| ScrollLock	   | CapsLock            | CapsLock の退避          |
+| \ _              | RightShift          |                          |
+| YEN bar          | ESC                 |                          |
+| RightShift       | RightCtrl           |                          |
+| CapsLock         | RightCtrl           |                          |
+| KatakanaHiragana | RightMeta(RightWin) |                          |
+| LeftCtrl         | Katakana            | katakana-map 用          |
+
+#### -hhk-jp-to-us
+
+| KEY              | MAP                 |
+|------------------|---------------------|
+| ` ~              | ESC                 |
+| ESC              | ` ~                 |
+
+## COMPLEX キーマップ
+
+### --henkan-map
 
 | KEY                | MAP                      |
 |--------------------|--------------------------|
-| HENKAN + SPC       | ESC                      |
 | HENKAN + h/j/k/l   | Left / Down / Up / Right |
 | HENKAN + i/o       | PgUp / PgDn              |
 | HENKAN + ,/.       | Home / End               |
@@ -29,11 +54,12 @@
 
 HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はそのまま通す。
 
-- --henkan-only-to-henkan
+### --henkan-only-to-henkan
 
---henkan-map と同時に指定した場合，変換キーのみ押してすぐに話した場合は，変換キーを入力する。
+「--henkan-map」 と同時に指定した場合，変換キーのみ押してすぐに放した場合は，
+変換キーを入力する。
 
-- --muhenkan-map
+### --muhenkan-map
 
 | KEY                | MAP                      |
 |--------------------|--------------------------|
@@ -43,7 +69,7 @@ HENKAN と同時押しの場合，他の modifier (Ctrl, Alt, Shift) はその�
 MUHENKAN のみの場合は，MUHENKAN を入力される
 MUHENKAN と他のキーの同時押しの場合は，LALT + ???? が入力される
 
-- -e|--ctrl-map オプション
+### -e|--ctrl-map オプション
 
 | KEY      | MAP       |
 |----------|-----------|
@@ -51,29 +77,10 @@ MUHENKAN と他のキーの同時押しの場合は，LALT + ???? が入力さ�
 | CTRL + m | Enter     |
 | PAUSE    | Ctrl + h  |
 
-- -j|-jp-to-us オプション
+### --katakana-map 
 
-| KEY              | MAP                 |
-|------------------|---------------------|
-| \ _              | RightShift          |
-| RightShift       | RightCtrl           |
-| KatakanaHiragana | RightMeta(RightWin) |
-| CapsLock         | RightCtrl           |
-| LeftCtrl         | Katakana            |
-| ScrollLock	   | CapsLock            |
+「かたかな」を，CTRL+SHIFT+WIN にマッピング
 
-- -h|-hhk-jp-to-us オプション
-
-| KEY              | MAP                 |
-|------------------|---------------------|
-| ` ~              | ESC                 |
-| ESC              | ` ~                 |
-| \ _              | RightShift          |
-| RightShift       | RightCtrl           |
-| KatakanaHiragana | RightMeta(RightWin) |
-| LeftCtrl         | Katakana            |
-| CapsLock         | RightCtrl           |
-| ScrollLock	   | CapsLock            |
 
 ## インストール方法
 
@@ -85,8 +92,7 @@ $ sudo make install
 systemd から起動する場合は，
 
 ```
-$ cd systemd
-$ sudo sh ./setup.sh
+$ sudo make setup
 ```
 
 ## 使い方

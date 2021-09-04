@@ -42,18 +42,14 @@ bool g_enable_henkan_map = false;
 bool g_enable_muhenkan_map = false;
 bool g_enable_katakana_map = false;
 bool g_enable_skk_map = false;
-bool g_lalt_to_esc = false;
 bool g_jp_to_us = false;
-bool g_hhk_jp_to_us = false;
+bool g_hhk = false;
 bool g_muhenkan_to_kana = false;
 bool g_muhenkan_to_esc = false;
 bool g_henkan_only_to_henkan = false;
 bool g_muhen_only_to_muhen = false;
 bool g_muhen_only_to_esc = false;
-bool g_lctrl_only_to_esc = false;
 bool g_ralt_to_kana = false;
-bool g_f11_to_henkan = false;
-bool g_f12_to_katakana = false;
 
 #define DP(x) if (g_debug) printf x
 
@@ -72,12 +68,10 @@ int main(int argc, char* argv[])
     /* Parse command line arguments */
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
-            if (strcmp(argv[i], "-h") == 0
-                || strcmp(argv[i], "--hhk-jp-to-us") == 0) {
-                g_hhk_jp_to_us = true;
+            if (strcmp(argv[i], "--hhk") == 0) {
+                g_hhk = true;
             }
-            else if (strcmp(argv[i], "-j") == 0
-                || strcmp(argv[i], "--jp-to-us") == 0) {
+            else if (strcmp(argv[i], "--jp-to-us") == 0) {
                 g_jp_to_us = true;
             }
             else if (strcmp(argv[i], "--ctrl-map") == 0) {
@@ -86,38 +80,17 @@ int main(int argc, char* argv[])
             else if (strcmp(argv[i], "--henkan-map") == 0) {
                 g_enable_henkan_map = true;
             }
-            else if (strcmp(argv[i], "--lctrl-only-to-esc") == 0) {
-                g_lctrl_only_to_esc = true;
-            }
             else if (strcmp(argv[i], "--henkan-only-to-henkan") == 0) {
                 g_henkan_only_to_henkan = true;
-            }
-            else if (strcmp(argv[i], "--muhenkan-only-to-muhenkan") == 0) {
-                g_muhen_only_to_muhen = true;
-            }
-            else if (strcmp(argv[i], "--muhenkan-only-to-esc") == 0) {
-                g_muhen_only_to_esc = true;
             }
             else if (strcmp(argv[i], "--muhenkan-map") == 0) {
                 g_enable_muhenkan_map = true;
             }
+            else if (strcmp(argv[i], "--muhenkan-only-to-muhenkan") == 0) {
+                g_muhen_only_to_muhen = true;
+            }
             else if (strcmp(argv[i], "--katakana-map") == 0) {
                 g_enable_katakana_map = true;
-            }
-            else if (strcmp(argv[i], "--muhenkan-to-kana") == 0) {
-                g_muhenkan_to_kana = true;
-            }
-            else if (strcmp(argv[i], "--muhenkan-to-esc") == 0) {
-                g_muhenkan_to_esc = true;
-            }
-            else if (strcmp(argv[i], "--ralt-to-kana") == 0) {
-                g_ralt_to_kana = true;
-            }
-            else if (strcmp(argv[i], "--f11-to-henkan") == 0) {
-                g_f11_to_henkan = true;
-            }
-            else if (strcmp(argv[i], "--f12-to-katakana") == 0) {
-                g_f12_to_katakana = true;
             }
             else if (strcmp(argv[i], "-n") == 0
                 || strcmp(argv[i], "--no-grab") == 0) {

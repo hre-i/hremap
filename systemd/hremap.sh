@@ -26,18 +26,15 @@ case x"$DEV" in
     opt="$opt"
     ;;
 *HHKB*)
-    opt="--henkan-map --muhenkan-map --katakana-map --henkan-only-to-henkan --muhenkan-only-to-muhenkan --hhk-jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --henkan-only-to-henkan --muhenkan-only-to-muhenkan --jp-to-us --hhk $opt"
     ;;
 *RealForce*)
-    opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-only-to-esc --jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --henkan-only-to-henkan --muhenkan-only-to-muhenkan --jp-to-us $opt"
     ;;
 *Microsoft_Surface*)
-    opt="--henkan-map --muhenkan-map --katakana-map --muhenkan-only-to-esc --jp-to-us $opt"
+    opt="--henkan-map --muhenkan-map --katakana-map --henkan-only-to-henkan --muhenkan-only-to-muhenkan --jp-to-us $opt"
     ;;
 *Ultimate_Hacking_Keyboard*)
-    ;;
-*platform-i8042*)
-    opt="--henkan-map --muhenkan-map --katakana-map --ralt-to-kana --function-map $opt"
     ;;
 esac
 
