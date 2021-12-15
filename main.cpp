@@ -23,14 +23,12 @@
 static void usage() {
   fprintf(stderr, "Usage: hremap <options> /dev/input/event<n>\n");
   fprintf(stderr, "  --ctrl-map: enable ctrl+{h,m} mapping\n");
-  fprintf(stderr, "  --lctrl-only-to-esc: map left control only to esc\n");
   fprintf(stderr, "  --henkan-map: enable mappings with henkan key\n");
   fprintf(stderr, "  --henkan-only-to-henkan: map henkan-only to henkan key\n");
   fprintf(stderr, "  --muhenkan-map: enable mappings with muhenkan key\n");
+  fprintf(stderr, "  --muhenkan-only-to-multiple: enable mappings with muhenkan key\n");
   fprintf(stderr, "  --jp-to-us: enable mappings for jp keyboard\n");
   fprintf(stderr, "  --hhk-jp-to-us: enable mappings for hhk-jp keyboard\n");
-  fprintf(stderr, "  --f11-to-henkan:\n");
-  fprintf(stderr, "  --f12-to-katakana:\n");
   fprintf(stderr, "  --no-grab: do not grab device input (for debug)\n");
   fprintf(stderr, "  --debug: enable debug mode\n");
 }
@@ -81,6 +79,8 @@ int main(int argc, char *argv[]) {
         g_muhen_only_to_muhen = true;
       } else if (strcmp(argv[i], "--katakana-map") == 0) {
         g_enable_katakana_map = true;
+      } else if (strcmp(argv[i], "--muhenkan-to-esc") == 0) {
+        g_muhenkan_to_esc = true;
       } else if (strcmp(argv[i], "-n") == 0 ||
                  strcmp(argv[i], "--no-grab") == 0) {
         noGrabMode = true;
